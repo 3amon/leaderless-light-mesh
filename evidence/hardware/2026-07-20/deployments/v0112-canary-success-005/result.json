@@ -1,0 +1,45 @@
+{
+  "exit_code": 0,
+  "results": [
+    {
+      "active": {
+        "active": true,
+        "bootable": true,
+        "confirmed": true,
+        "hash": "F26CB3BA18E19A1AFAE122A751E2B0B002D691061ACA28ECEC3B337DE28190C7",
+        "pending": false,
+        "permanent": false,
+        "slot": 0,
+        "version": "0.1.16"
+      },
+      "classification": "success",
+      "device": "opal-reef-tide",
+      "duration": 33.58946900200681,
+      "image": {
+        "file_sha256": "bf80229d77339464a58e7fce02b78b41c44ecab61a185e908f403049acf457ca",
+        "header_size": 512,
+        "image_hash": "F26CB3BA18E19A1AFAE122A751E2B0B002D691061ACA28ECEC3B337DE28190C7",
+        "path": "/home/pi/thread-ring-tools/v0.1.16.signed.bin",
+        "payload_size": 286188,
+        "size": 287036,
+        "version": "0.1.16"
+      },
+      "saw_down": true,
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 73,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": 6,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=2s theta=369024ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/ota flash=0 pat=6 bright=45% frames=73",
+        "reset": "00000002/ota",
+        "theta": 369024,
+        "up": 2
+      }
+    }
+  ]
+}

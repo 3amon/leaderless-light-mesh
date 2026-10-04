@@ -1,0 +1,26 @@
+minimum_pre_commit_version: "4.6.0"
+
+repos:
+  - repo: local
+    hooks:
+      - id: repository-hygiene
+        name: reject tracked generated files
+        entry: python3 scripts/check_repo_hygiene.py
+        language: system
+        always_run: true
+        pass_filenames: false
+      - id: ruff-check
+        name: ruff lint
+        entry: ruff check
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format --check
+        language: system
+        types: [python]
+      - id: bash-syntax
+        name: bash syntax
+        entry: bash -n
+        language: system
+        types: [shell]

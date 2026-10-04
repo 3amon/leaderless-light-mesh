@@ -1,0 +1,87 @@
+<title>Solo Scene Bench</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#0e1116; --panel:#171c24; --panel-2:#1e242e; --line:#2a323e;
+    --ink:#e6ecf3; --muted:#8b97a8; --accent:#4ec9b0; --warn:#e0a85f; --bad:#e06c5f;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--ground)}
+  body{margin:0;color:var(--ink);font-family:var(--sans);line-height:1.5}
+  .wrap{max-width:1000px;margin:0 auto;padding-inline:20px;padding-block:28px 40px}
+  h1{font-size:1.5rem;font-weight:600;margin:0;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:.9rem;margin:6px 0 22px;max-width:70ch}
+  .sub code,.note code,.fam code{font-family:var(--mono);color:var(--accent);font-size:.85em}
+  .rings{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:620px){.rings{grid-template-columns:1fr}}
+  .cell{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .cell.new{border-color:#2f4a44}
+  .cell h2{margin:0;font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .cell.new h2{color:var(--accent)}
+  canvas{width:100%;height:auto;display:block;border-radius:8px;background:#05070a}
+  .metrics{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.78rem;font-variant-numeric:tabular-nums}
+  .metrics div{display:flex;flex-direction:column;gap:2px}
+  .metrics b{font-weight:500;font-size:1.05rem}
+  .metrics span{color:var(--muted);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase}
+  .metrics b.over{color:var(--warn)}
+  .controls{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-wrap:wrap;gap:16px 22px;align-items:center}
+  .grp{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .grp>span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  button{font-family:var(--sans);font-size:.83rem;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+  button:hover{border-color:#3c4757}
+  button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#06211c;font-weight:600}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .clock{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .fam{margin-top:20px;border-left:2px solid var(--line);padding-left:14px;color:var(--muted);font-size:.85rem;max-width:72ch}
+  .fam b,.note b{color:var(--ink);font-weight:600}
+  .note{margin-top:16px;border-left:2px solid var(--line);padding-left:14px;color:var(--muted);font-size:.85rem;max-width:72ch}
+</style>
+<div class="wrap">
+  <h1>Solo Scene Bench</h1>
+  <p class="sub">Normal mode, one ring on its own. Both panels are real firmware output: the shipped v0.1.90 renderer on the left, the working tree on the right, each run through <code>main.c</code>'s vivid guard, overflow rescale, 45% brightness and the slewed 45/LED power cap. 16 LEDs, 20&nbsp;fps, 16&nbsp;s loop starting after the minute crossfade. <b>Palette</b> picks three different minutes of the same family: the anchor hue walks 47° per minute on both sides, and on the new side the companion spread (22, 34, 48 or 64°) and its side are re-rolled each minute too.</p>
+
+  <div class="rings">
+    <div class="cell">
+      <h2 id="hOld">Shipped — breath</h2>
+      <canvas id="cOld" width="420" height="420"></canvas>
+      <div class="metrics">
+        <div><b id="ctOld">—</b><span>contrast</span></div>
+        <div><b id="stOld">—</b><span>blended sat</span></div>
+        <div><b id="ldOld">—</b><span>load / led</span></div>
+        <div><b id="cpOld">—</b><span>capped frames</span></div>
+      </div>
+    </div>
+    <div class="cell new">
+      <h2 id="hNew">New — tide</h2>
+      <canvas id="cNew" width="420" height="420"></canvas>
+      <div class="metrics">
+        <div><b id="ctNew">—</b><span>contrast</span></div>
+        <div><b id="stNew">—</b><span>blended sat</span></div>
+        <div><b id="ldNew">—</b><span>load / led</span></div>
+        <div><b id="cpNew">—</b><span>capped frames</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="grp"><span>Family</span>
+      <button data-f="0">tide</button><button data-f="1">comet</button><button data-f="2">starfield</button></div>
+    <div class="grp"><span>Palette</span>
+      <button data-p="0">minute A</button><button data-p="1">minute B</button><button data-p="2">minute C</button></div>
+    <div class="grp"><span>Diffuser</span>
+      <button data-d="0">off</button><button data-d="1">light</button>
+      <button data-d="2">heavy</button><button data-d="3">cap</button></div>
+    <div class="grp"><span>Exposure</span>
+      <button data-g="1">true</button><button data-g="2.5">2.5×</button><button data-g="4">4×</button></div>
+    <div class="grp"><button id="playBtn" aria-pressed="true">Pause</button></div>
+    <div class="clock" id="clock">t = 0.0 s</div>
+  </div>
+
+  <p class="fam" id="famNote"></p>
+  <p class="note"><b>Load / led</b> is the mean summed-channel value per pixel after brightness, the number the rail actually sees; the firmware cap is 45. <b>Capped frames</b> is how often the limiter had to dim the frame. <b>Blended sat</b> is the whole ring averaged together, what a heavy cap does physically: 1.00 vivid, 0.00 white. <b>Exposure</b> only scales the drawing: <em>true</em> is the raw 8-bit value the strip receives, which a monitor renders far dimmer than an LED. Every family keeps a single anchor hue and only leans toward an analogous companion, never a complement, so the blend stays saturated.</p>
+</div>
+<script>
+const DATA =

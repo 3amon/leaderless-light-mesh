@@ -1,0 +1,39 @@
+{
+  "action": "deploy",
+  "allow_downgrade": false,
+  "allow_same_version": false,
+  "command_timeout": 0.5,
+  "devices": [
+    {
+      "address": "fd00:db8:0:1:a022:b022:c022:d022",
+      "canary": true,
+      "name": "opal-reef-tide",
+      "rollout_order": 0,
+      "usb_serial": "DEC0DE0000000022"
+    }
+  ],
+  "image": "/home/pi/firmware-tests/thread-ring-v0.1.18-project-key.signed.bin",
+  "image_metadata": {
+    "file_sha256": "0104d0124aa2e0e44c57b183560028973185acfea1467b73d047d9e12798012b",
+    "header_size": 512,
+    "image_hash": "0703E47664923732667B1B95376CBB85B96D9253FB5F15BAF0D627DC14BA0F76",
+    "path": "/home/pi/firmware-tests/thread-ring-v0.1.18-project-key.signed.bin",
+    "payload_size": 287808,
+    "size": 288656,
+    "version": "0.1.18"
+  },
+  "inventory": "/home/pi/thread-ring-tools/config/rings.json",
+  "lock_dir": "/tmp/thread-ring-deploy-locks",
+  "out": "/home/pi/deployments/v0118-project-key-opal-ota-001",
+  "poll_interval": 1.0,
+  "reboot_timeout": 180.0,
+  "smp_helper": "/home/pi/firmware-tests/smp_transport.py",
+  "smp_python": null,
+  "smpmgr": "/home/pi/.local/bin/smpmgr",
+  "state_timeout": 5.0,
+  "target": "opal-reef-tide",
+  "upload_attempts": 3,
+  "upload_retry_delay": 5.0,
+  "upload_timeout": 360.0,
+  "upload_verify_timeout": 45.0
+}

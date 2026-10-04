@@ -1,0 +1,194 @@
+#include <zephyr/dt-bindings/led/led.h>
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/adc/nrf-adc.h>
+
+/* Battery sense on AIN7 (P0.31).
+ *
+ * EXPERIMENTAL / UNCONFIRMED: the SuperMini nRF52840 clones used here are not
+ * genuine nice!nano, and clone batches differ on whether the onboard battery
+ * divider is populated. P0.31 is otherwise unused by this design (we drive
+ * P0.06 LED data, P0.13 VCC rail, P0.17 LED rail, P0.20 button, P1.11/P1.13
+ * parked SPI), so reading it is harmless either way.
+ *
+ * The status line reports the voltage AT THE PIN, deliberately unscaled, so a
+ * reading can be interpreted rather than guessed at:
+ *   ~half of VBAT (e.g. ~2.0 V on a 4.0 V cell) -> a 1:2 divider is present
+ *   ~0 mV or drifting noise                     -> no divider populated
+ * Only once a real divider is confirmed should this be scaled to a percentage.
+ */
+&adc {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@7 {
+		reg = <7>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,input-positive = <NRF_SAADC_AIN7>;
+		zephyr,resolution = <12>;
+	};
+};
+
+/* WS2812 transport capacity is 100 pixels; the persisted layout sends 100
+ * (rope100), 16 (ring16), or 7 (jewel7). Keeping the transport at the maximum
+ * also lets a layout change clear pixels beyond the new logical end. Data is
+ * on P0.06 — the carrier board's LED_DATA_MCU net. SPIM MOSI generates the
+ * 800 kHz waveform;
+ * SCK/MISO are required by the peripheral so they're parked on unused
+ * pins (P1.11 / P1.13 are not broken out on the SuperMini).
+ */
+
+&pinctrl {
+	spi1_led_default: spi1_led_default {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
+				<NRF_PSEL(SPIM_MISO, 1, 13)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 6)>;
+		};
+	};
+	spi1_led_sleep: spi1_led_sleep {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
+				<NRF_PSEL(SPIM_MISO, 1, 13)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 6)>;
+			low-power-enable;
+		};
+	};
+};
+
+&spi1 {
+	compatible = "nordic,nrf-spim";
+	status = "okay";
+	pinctrl-0 = <&spi1_led_default>;
+	pinctrl-1 = <&spi1_led_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	led_strip: ws2812@0 {
+		compatible = "worldsemi,ws2812-spi";
+		reg = <0>;
+		spi-max-frequency = <4000000>;
+		chain-length = <100>;
+		color-mapping = <LED_COLOR_ID_GREEN
+				 LED_COLOR_ID_RED
+				 LED_COLOR_ID_BLUE>;
+		spi-one-frame = <0x70>;
+		spi-zero-frame = <0x40>;
+	};
+};
+
+/* USB CDC console: the board dts already provides board_cdc_acm_uart and
+ * points zephyr,console at it — do NOT add a second CDC instance here.
+ */
+
+/ {
+	vbatt: vbatt {
+		/* io-channels only: the divider ratio is deliberately not
+		 * declared, because it is not yet known whether one exists.
+		 * See the AIN7 note above. */
+		compatible = "voltage-divider";
+		io-channels = <&adc 7>;
+		output-ohms = <1000000>;
+		full-ohms = <2000000>;
+	};
+
+	aliases {
+		led-strip = &led_strip;
+		led-power = &led_power;
+		module-vcc-power = &module_vcc_power;
+	};
+
+	led_power_ctrl {
+		compatible = "gpio-leds";
+		led_power: led_power {
+			gpios = <&gpio0 17 GPIO_ACTIVE_HIGH>;
+			label = "LED rail enable";
+		};
+	};
+
+	module_vcc_power_ctrl {
+		compatible = "gpio-leds";
+		module_vcc_power: module_vcc_power {
+			/* SuperMini/nice!nano clone switchable 3.3 V VCC output. */
+			gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+			label = "SuperMini VCC rail enable";
+		};
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+		user_button: button_0 {
+			gpios = <&gpio0 20 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "USER";
+		};
+	};
+};
+
+/* --- OTA (ota-thread branch): MCUboot chainloaded by the UF2 bootloader ---
+ *
+ * The stock uf2_sdv6 layout gives the app 792 kB at 0x26000. We split that
+ * into MCUboot + A/B slots; storage stays put so Thread NVS identity
+ * survives the migration, and the Adafruit UF2 bootloader at 0xf4000 is
+ * never touched (double-tap reset remains the forever rescue path).
+ *
+ *   0x26000  48k  MCUboot        (node label boot_partition — what the
+ *                                 UF2 bootloader jumps into)
+ *   0x32000 372k  slot0          (running app, mcuboot header at +0)
+ *   0x8f000 372k  slot1          (OTA staging)
+ *   0xec000  32k  storage        (UNCHANGED address — Thread NVS)
+ *   0xf4000  48k  UF2 bootloader (read-only, relabeled uf2_partition)
+ *
+ * KEEP IN SYNC with sysbuild/mcuboot.overlay (same map, duplicated because
+ * the two images are separate builds).
+ */
+
+/delete-node/ &code_partition;
+/delete-node/ &storage_partition;
+/delete-node/ &boot_partition;
+
+/ {
+	chosen {
+		zephyr,code-partition = &slot0_partition;
+	};
+};
+
+&flash0 {
+	partitions {
+		boot_partition: partition@26000 {
+			label = "mcuboot";
+			reg = <0x00026000 0x0000c000>;
+		};
+		/* second label `code_partition` keeps the base dtsi's chosen
+		 * reference resolvable after the /delete-node/ above */
+		code_partition: slot0_partition: partition@32000 {
+			label = "image-0";
+			reg = <0x00032000 0x0005d000>;
+		};
+		slot1_partition: partition@8f000 {
+			label = "image-1";
+			reg = <0x0008f000 0x0005d000>;
+		};
+		storage_partition: partition@ec000 {
+			label = "storage";
+			reg = <0x000ec000 0x00008000>;
+		};
+		uf2_partition: partition@f4000 {
+			label = "uf2-bootloader";
+			read-only;
+			reg = <0x000f4000 0x0000c000>;
+		};
+	};
+};
+
+/* The top 12 KiB of SRAM (0x2003d000..0x20040000) are reserved: the
+ * escape-ladder boot-attempt state at 0x2003d000 (KEEP IN SYNC with
+ * src/escape_ladder.h ESCAPE_LADDER_RAM_ADDR and the other overlays)
+ * plus the native UF2 bootloader's stack, whose initial MSP is the top
+ * of SRAM and which runs on every reset before MCUboot. Carving the
+ * whole region out of sram0 keeps both images' stacks and heap clear of
+ * the ladder and documents why the last 8 KiB are never trustworthy
+ * across a reset anyway. */
+&sram0 {
+	reg = <0x20000000 0x3d000>;
+};

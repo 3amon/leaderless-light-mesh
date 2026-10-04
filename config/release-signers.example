@@ -1,0 +1,5 @@
+# Allowed-signers file for release attestation (ssh-keygen -Y verify).
+# Copy to config/release-signers and replace the line below with the release
+# maintainer's identity and SSH public key. The identity must match
+# ATTESTATION_IDENTITY in scripts/signing.py. Private keys never live here.
+release@example.net ssh-ed25519 REPLACE_WITH_YOUR_SSH_PUBLIC_KEY

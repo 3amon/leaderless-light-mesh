@@ -1,0 +1,46 @@
+{
+  "exit_code": 0,
+  "trials": [
+    {
+      "baseline": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 955,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "1e2c66bb",
+        "pat": 6,
+        "ppm": 565,
+        "raw": "opal-reef-tide up=34s theta=554797ms ppm=565 nbr=1/1 infra=1 part=1e2c66bb reset=00000000/none flash=0 pat=6 bright=45% frames=955",
+        "reset": "00000000/none",
+        "theta": 554797,
+        "up": 34
+      },
+      "duration": 8.796222161996411,
+      "recovered_status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 181,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "1e2c66bb",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=6s theta=295749ms ppm=0 nbr=1/1 infra=1 part=1e2c66bb reset=00000002/command flash=0 pat=-1 bright=45% frames=181",
+        "reset": "00000002/command",
+        "theta": 295749,
+        "up": 6
+      },
+      "saw_status_down": true,
+      "saw_usb_down": true,
+      "status_down_at": 0.0012740580132231116,
+      "status_up_at": 7.6622390859993175,
+      "success": true,
+      "trial": 1,
+      "usb_down_at": 0.902415527991252,
+      "usb_up_at": 3.1564317680022214
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+;
+const LEDS=16, FPS=20, NF=FPS*16;
+const NOTES={
+ 0:'<b>tide</b> (was <code>breath</code>). The whole-ring breath is kept, and one soft crest of light now drifts around the ring on a period 0.8× the breath, so the two never lock into a visible loop. The crest leans toward the companion hue: the colour appears to travel with the light instead of the ring merely dimming.',
+ 1:'<b>comet</b> (was <code>halo</code>). The orbiting glow grows a tail: sharp on its leading edge, exponential behind, so the direction of travel reads at a glance. A dimmer companion-hued ember circles the other way at half speed and the two pass through each other twice a lap.',
+ 2:'<b>starfield</b> (was <code>soft-shimmer</code>). The soft shimmer stays, and about one pixel in four per slot now twinkles in the companion hue. Slots crossfade instead of switching, so each star rises over one slot (about 2 s) and fades over the next; nothing steps.'
+};
+let fam=0, pal=0, diff=2, gain=2.5, playing=true, frame=0;
+const E={old:{c:'cOld',ct:'ctOld',st:'stOld',ld:'ldOld',cp:'cpOld',h:'hOld'},new:{c:'cNew',ct:'ctNew',st:'stNew',ld:'ldNew',cp:'cpNew',h:'hNew'}};
+const clock=document.getElementById('clock');
+const BLUR=[0,0.025,0.06,0.11], RAD=[0.045,0.065,0.10,0.15];
+function variant(side){ return DATA[side+fam+'p'+pal]; }
+function draw(side){
+  const el=document.getElementById(E[side].c), ctx=el.getContext('2d');
+  const W=el.width,H=el.height,cx=W/2,cy=H/2,R=W*0.33;
+  const v=variant(side); if(!v) return;
+  const f=v.frames[frame%v.frames.length];
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#05070a'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#11161d'; ctx.lineWidth=W*0.115;
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+  ctx.save();
+  if(BLUR[diff]>0) ctx.filter='blur('+(W*BLUR[diff])+'px)';
+  ctx.globalCompositeOperation='lighter';
+  let hi=0,lo=1e9,sr=0,sg=0,sb=0;
+  for(let i=0;i<LEDS;i++){
+    const r0=f[i*3],g0=f[i*3+1],b0=f[i*3+2];
+    const pv=Math.max(r0,g0,b0)/255; hi=Math.max(hi,pv); lo=Math.min(lo,pv);
+    sr+=r0; sg+=g0; sb+=b0;
+    /* Display exposure only: a monitor pixel at 115/255 looks nothing like a
+       WS2812 at 115/255. Scale for the screen, clamp each pixel proportionally
+       so hue survives, and leave every metric on the true values. */
+    let m=Math.max(r0,g0,b0)*gain, k=m>255?255/m*gain:gain;
+    const r=Math.round(r0*k),g=Math.round(g0*k),b=Math.round(b0*k);
+    const a=(i/LEDS)*Math.PI*2-Math.PI/2;
+    const x=cx+Math.cos(a)*R, y=cy+Math.sin(a)*R, rad=W*RAD[diff];
+    const gr=ctx.createRadialGradient(x,y,0,x,y,rad);
+    gr.addColorStop(0,'rgb('+r+','+g+','+b+')');
+    gr.addColorStop(0.45,'rgba('+r+','+g+','+b+',0.55)');
+    gr.addColorStop(1,'rgba('+r+','+g+','+b+',0)');
+    ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(x,y,rad,0,Math.PI*2); ctx.fill();
+  }
+  ctx.restore();
+  sr/=LEDS; sg/=LEDS; sb/=LEDS;
+  const mx=Math.max(sr,sg,sb), mn=Math.min(sr,sg,sb);
+  document.getElementById(E[side].ct).textContent = lo>0.0005 ? (hi/lo).toFixed(1)+'×' : '∞';
+  document.getElementById(E[side].st).textContent = (mx>0?(mx-mn)/mx:0).toFixed(2);
+  const ld=document.getElementById(E[side].ld); ld.textContent=v.load_led.toFixed(0); ld.classList.toggle('over', v.load_led>45);
+  document.getElementById(E[side].cp).textContent=v.capped_pct.toFixed(0)+'%';
+  document.getElementById(E[side].h).textContent=(side==='old'?'Shipped — ':'New — ')+v.name+' · hue '+v.hue+'°';
+}
+function tick(){ draw('old'); draw('new'); clock.textContent='t = '+(frame/FPS).toFixed(1)+' s';
+  document.getElementById('famNote').innerHTML=NOTES[fam]; }
+function wire(attr,set){
+  document.querySelectorAll('['+attr+']').forEach(b=>{
+    b.addEventListener('click',()=>{ set(b.getAttribute(attr));
+      document.querySelectorAll('['+attr+']').forEach(o=>o.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true'); tick(); });
+  });
+}
+wire('data-f',v=>{fam=+v; frame=0;});
+wire('data-p',v=>{pal=+v; frame=0;});
+document.querySelector('[data-p="0"]').setAttribute('aria-pressed','true');
+wire('data-d',v=>diff=+v);
+wire('data-g',v=>gain=+v);
+document.querySelector('[data-g="2.5"]').setAttribute('aria-pressed','true');
+document.querySelector('[data-f="0"]').setAttribute('aria-pressed','true');
+document.querySelector('[data-d="2"]').setAttribute('aria-pressed','true');
+const playBtn=document.getElementById('playBtn');
+playBtn.addEventListener('click',()=>{playing=!playing;
+  playBtn.setAttribute('aria-pressed',String(playing)); playBtn.textContent=playing?'Pause':'Play';});
+let last=0;
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  playing=false; playBtn.setAttribute('aria-pressed','false'); playBtn.textContent='Play';}
+function loop(ts){ if(playing&&ts-last>=1000/FPS){frame=(frame+1)%NF;last=ts;tick();}
+  requestAnimationFrame(loop); }
+tick(); requestAnimationFrame(loop);
+</script>

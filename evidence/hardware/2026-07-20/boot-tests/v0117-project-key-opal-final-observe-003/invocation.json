@@ -1,0 +1,19 @@
+{
+  "action": "observe",
+  "canary_name": "opal-reef-tide",
+  "command_timeout": 0.2,
+  "dashboard": "http://localhost:8080/api/state",
+  "expected_address": "fd00:db8:0:1:a022:b022:c022:d022",
+  "expected_img": "0.1.17",
+  "max_recovery_seconds": 150.0,
+  "network_only": false,
+  "observe_seconds": 10.0,
+  "out": "/home/pi/boot-tests/v0117-project-key-opal-final-observe-003",
+  "poll_interval": 0.25,
+  "sentinel_address": "fd00:db8:0:1:a002:b002:c002:d002",
+  "sentinel_name": "feral-tide-light",
+  "settle_seconds": 15.0,
+  "target": "opal-reef-tide",
+  "trials": 1,
+  "usb_serial": "DEC0DE0000000022"
+}

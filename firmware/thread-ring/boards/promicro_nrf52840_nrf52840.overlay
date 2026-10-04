@@ -1,0 +1,103 @@
+#include <zephyr/dt-bindings/led/led.h>
+
+/* WS2812 transport capacity is 100 pixels; the persisted layout sends 100
+ * (rope100), 16 (ring16), or 7 (jewel7). Keeping the transport at the maximum
+ * also lets a layout change clear pixels beyond the new logical end. Data is
+ * on P0.06 — the carrier board's LED_DATA_MCU net. SPIM MOSI generates the
+ * 800 kHz waveform;
+ * SCK/MISO are required by the peripheral so they're parked on unused
+ * pins (P1.11 / P1.13 are not broken out on the SuperMini).
+ */
+
+&pinctrl {
+	spi1_led_default: spi1_led_default {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
+				<NRF_PSEL(SPIM_MISO, 1, 13)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 6)>;
+		};
+	};
+	spi1_led_sleep: spi1_led_sleep {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 11)>,
+				<NRF_PSEL(SPIM_MISO, 1, 13)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 6)>;
+			low-power-enable;
+		};
+	};
+};
+
+&spi1 {
+	compatible = "nordic,nrf-spim";
+	status = "okay";
+	pinctrl-0 = <&spi1_led_default>;
+	pinctrl-1 = <&spi1_led_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	led_strip: ws2812@0 {
+		compatible = "worldsemi,ws2812-spi";
+		reg = <0>;
+		spi-max-frequency = <4000000>;
+		chain-length = <100>;
+		color-mapping = <LED_COLOR_ID_GREEN
+				 LED_COLOR_ID_RED
+				 LED_COLOR_ID_BLUE>;
+		spi-one-frame = <0x70>;
+		spi-zero-frame = <0x40>;
+	};
+};
+
+&usbd {
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};
+
+/ {
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+	};
+
+	aliases {
+		led-strip = &led_strip;
+		led-power = &led_power;
+		module-vcc-power = &module_vcc_power;
+	};
+
+	led_power_ctrl {
+		compatible = "gpio-leds";
+		led_power: led_power {
+			gpios = <&gpio0 17 GPIO_ACTIVE_HIGH>;
+			label = "LED rail enable";
+		};
+	};
+
+	module_vcc_power_ctrl {
+		compatible = "gpio-leds";
+		module_vcc_power: module_vcc_power {
+			/* SuperMini/nice!nano clone switchable 3.3 V VCC output. */
+			gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+			label = "SuperMini VCC rail enable";
+		};
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+		user_button: button_0 {
+			gpios = <&gpio0 20 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "USER";
+		};
+	};
+};
+
+/* The top 12 KiB of SRAM (0x2003d000..0x20040000) are reserved: the
+ * escape-ladder boot-attempt state at 0x2003d000 (KEEP IN SYNC with
+ * src/escape_ladder.h ESCAPE_LADDER_RAM_ADDR and the other overlays)
+ * plus the native UF2 bootloader's stack, whose initial MSP is the top
+ * of SRAM and which runs on every reset before MCUboot. Carving the
+ * whole region out of sram0 keeps both images' stacks and heap clear of
+ * the ladder and documents why the last 8 KiB are never trustworthy
+ * across a reset anyway. */
+&sram0 {
+	reg = <0x20000000 0x3d000>;
+};

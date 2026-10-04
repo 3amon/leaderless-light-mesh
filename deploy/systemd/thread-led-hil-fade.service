@@ -1,0 +1,50 @@
+[Unit]
+Description=Thread LED ring rejoin fade camera check
+After=network-online.target fleet-dashboard.service
+Wants=network-online.target
+ConditionPathExists=/dev/video0
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/thread-led-node
+# The dashboard takes a 2.5-second positioning snapshot every six seconds.
+# Lease the camera for this bounded job, and restore snapshots on every exit.
+#
+# This job injects a rejoin and therefore reboots the ring, so it is classed
+# disruptive and needs the explicit opt-in. The unit deliberately has no timer:
+# starting it is a manual act, which is what keeps that opt-in meaningful.
+#
+# Runs as root, unlike the read-only camera check: it issues authenticated
+# control commands, and the per-device keys are root-only by design. That is the
+# same privilege the deployment path already requires, rather than a new one --
+# widening the keys to the pi user would weaken them for every other caller.
+ExecStartPre=+/usr/bin/systemctl stop fleet-dashboard.service
+ExecStart=/usr/bin/python3 /opt/thread-led-node/pi-tools/hil_runner.py --config /etc/thread-led-node/hil-jobs.json --job heal-fade-camera --allow-disruptive --root /var/lib/thread-led-node/hil
+ExecStopPost=+/usr/bin/systemctl start --no-block fleet-dashboard.service
+TimeoutStartSec=10min
+Nice=10
+UMask=0077
+CapabilityBoundingSet=
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectHome=read-only
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+# Its own root-owned run root. Capabilities stay empty, so this root process
+# has no DAC override and cannot write the pi-owned tree the other jobs use --
+# and granting it that power just to file evidence would be the wrong trade.
+# StateDirectory rather than ReadWritePaths: the latter requires the path to
+# already exist when the mount namespace is built, which happens before any
+# ExecStartPre could create it.
+StateDirectory=thread-led-node/hil
+StateDirectoryMode=0750
+# control_client takes a per-device lock under $XDG_RUNTIME_DIR or ~/.cache;
+# as root under ProtectHome both are read-only, so point its documented
+# override at the writable state directory.
+Environment=THREAD_LED_CONTROL_LOCK_DIR=/var/lib/thread-led-node/hil/control-locks
+RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK AF_UNIX
+RestrictSUIDSGID=true

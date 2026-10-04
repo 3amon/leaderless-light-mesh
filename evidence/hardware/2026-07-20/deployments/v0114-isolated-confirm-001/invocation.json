@@ -1,0 +1,39 @@
+{
+  "action": "deploy",
+  "allow_downgrade": false,
+  "allow_same_version": false,
+  "command_timeout": 0.5,
+  "devices": [
+    {
+      "address": "fd00:db8:0:1:a022:b022:c022:d022",
+      "canary": true,
+      "name": "opal-reef-tide",
+      "rollout_order": 0,
+      "usb_serial": "DEC0DE0000000022"
+    }
+  ],
+  "image": "/home/pi/firmware-tests/isolated-confirm-0.1.14.bin",
+  "image_metadata": {
+    "file_sha256": "e1dd11ce3f2270fea5abe9c6e96415e0885c6ce1a9345929af51551f301e4a96",
+    "header_size": 512,
+    "image_hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+    "path": "/home/pi/firmware-tests/isolated-confirm-0.1.14.bin",
+    "payload_size": 287476,
+    "size": 288324,
+    "version": "0.1.14"
+  },
+  "inventory": "/home/pi/thread-ring-tools/config/rings.json",
+  "lock_dir": "/tmp/thread-ring-deploy-locks",
+  "out": "/home/pi/deployments/v0114-isolated-confirm-001",
+  "poll_interval": 1.0,
+  "reboot_timeout": 120.0,
+  "smp_helper": "/home/pi/thread-ring-tools/pi-tools/smp_transport.py",
+  "smp_python": null,
+  "smpmgr": "/home/pi/.local/bin/smpmgr",
+  "state_timeout": 5.0,
+  "target": "opal-reef-tide",
+  "upload_attempts": 3,
+  "upload_retry_delay": 5.0,
+  "upload_timeout": 360.0,
+  "upload_verify_timeout": 45.0
+}

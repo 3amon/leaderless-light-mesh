@@ -1,0 +1,16 @@
+manifest:
+  version: "1.2"
+  projects:
+    - name: zephyr
+      url: https://github.com/zephyrproject-rtos/zephyr
+      revision: 7823374e872145b5bd018bfe447839eb36042611
+      import:
+        name-allowlist:
+          - cmsis
+          - hal_nordic
+          - mbedtls
+          - mcuboot
+          - openthread
+          - zcbor
+  self:
+    path: thread-led-node

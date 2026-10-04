@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "root": "/home/pi/thread-ring-hil",
+  "inventory": "config/rings.json",
+  "retention": {
+    "successful_runs_per_job": 30,
+    "failed_runs_per_job": 90
+  },
+  "jobs": {
+    "boot-observe": {
+      "enabled": true,
+      "risk": "observe",
+      "schedules": [
+        "nightly"
+      ],
+      "timeout_seconds": 45,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/boot_test.py",
+        "--action",
+        "observe",
+        "--network-only",
+        "--require-healthy",
+        "--target",
+        "opal-reef-tide",
+        "--expected-address",
+        "{ring:opal-reef-tide:address}",
+        "--sentinel-name",
+        "feral-tide-light",
+        "--sentinel-address",
+        "{ring:feral-tide-light:address}",
+        "--observe-seconds",
+        "10",
+        "--out",
+        "{run_dir}/evidence"
+      ]
+    },
+    "freshness": {
+      "enabled": true,
+      "risk": "observe",
+      "schedules": [
+        "nightly"
+      ],
+      "timeout_seconds": 420,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/freshness_soak.py",
+        "--duration",
+        "300",
+        "--poll",
+        "0.5",
+        "--max-missing-samples",
+        "6",
+        "--outdir",
+        "{run_dir}/evidence"
+      ]
+    },
+    "rotation": {
+      "enabled": true,
+      "risk": "observe",
+      "schedules": [
+        "nightly"
+      ],
+      "timeout_seconds": 180,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/rotation_test.py",
+        "--duration",
+        "130",
+        "--poll",
+        "0.5",
+        "--min-changes",
+        "2",
+        "--max-mismatch-cycles",
+        "1",
+        "--max-missing-samples",
+        "3",
+        "--outdir",
+        "{run_dir}/evidence"
+      ]
+    },
+    "camera-steady": {
+      "enabled": true,
+      "risk": "diagnostic",
+      "schedules": [],
+      "timeout_seconds": 480,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/sync_test.py",
+        "steady",
+        "--rings",
+        "{ring:opal-reef-tide:address},{ring:feral-tide-light:address}",
+        "--duration",
+        "300",
+        "--fps",
+        "30",
+        "--min-pair-fraction",
+        "0.9",
+        "--max-abs-offset-ms",
+        "10",
+        "--min-offset-inlier-fraction",
+        "0.65",
+        "--max-jitter-ms",
+        "5",
+        "--max-abs-drift-ms-per-min",
+        "2",
+        "--outdir",
+        "{run_dir}/evidence"
+      ]
+    },
+    "boot-reboot-canary": {
+      "enabled": false,
+      "risk": "disruptive",
+      "schedules": [],
+      "timeout_seconds": 240,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/boot_test.py",
+        "--action",
+        "reboot",
+        "--target",
+        "opal-reef-tide",
+        "--expected-address",
+        "{ring:opal-reef-tide:address}",
+        "--usb-serial",
+        "{ring:opal-reef-tide:usb_serial}",
+        "--expected-img",
+        "0.1.22",
+        "--sentinel-name",
+        "feral-tide-light",
+        "--sentinel-address",
+        "{ring:feral-tide-light:address}",
+        "--out",
+        "{run_dir}/evidence"
+      ]
+    },
+    "rollback-canary": {
+      "enabled": false,
+      "risk": "disruptive",
+      "schedules": [],
+      "inputs": [
+        "rollback_profile"
+      ],
+      "timeout_seconds": 1200,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/rollback_test.py",
+        "--profile",
+        "{input:rollback_profile}",
+        "--inventory",
+        "{repo}/config/rings.json",
+        "--out",
+        "{run_dir}/evidence"
+      ]
+    },
+    "partition-rejoin-canary": {
+      "enabled": false,
+      "risk": "disruptive",
+      "schedules": [],
+      "inputs": [
+        "partition_profile"
+      ],
+      "timeout_seconds": 720,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/partition_test.py",
+        "--profile",
+        "{input:partition_profile}",
+        "--inventory",
+        "{repo}/config/rings.json",
+        "--out",
+        "{run_dir}/evidence"
+      ]
+    },
+    "heal-escalation": {
+      "enabled": true,
+      "risk": "disruptive",
+      "schedules": [],
+      "timeout_seconds": 900,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/heal_test.py",
+        "--target",
+        "opal-reef-tide",
+        "--expected-address",
+        "{ring:opal-reef-tide:address}",
+        "--steps",
+        "4",
+        "--out",
+        "{run_dir}/evidence/heal.json"
+      ]
+    },
+    "heal-fade-camera": {
+      "enabled": true,
+      "risk": "disruptive",
+      "schedules": [],
+      "timeout_seconds": 300,
+      "argv": [
+        "{python}",
+        "{repo}/pi-tools/fade_test.py",
+        "--target",
+        "opal-reef-tide",
+        "--address",
+        "{ring:opal-reef-tide:address}",
+        "--seconds",
+        "45",
+        "--fps",
+        "30",
+        "--out",
+        "{run_dir}/evidence/fade.json"
+      ]
+    }
+  }
+}

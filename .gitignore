@@ -1,0 +1,18 @@
+firmware/thread-ring/build/
+firmware/thread-ring/build-ota/
+firmware/thread-ring/build-*/
+dist/
+firmware/ring-test/build/
+__pycache__/
+*.pem
+*.key
+config/release-signers
+.cache/
+.venv/
+ci-build/
+*.bak
+.history/
+
+# Stray stub: this project declares no dependencies (pyproject is ruff config
+# only), so `uv lock` emits a header and nothing else.
+uv.lock

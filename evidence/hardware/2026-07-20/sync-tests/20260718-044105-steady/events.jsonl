@@ -1,0 +1,8 @@
+{"t": 39735.752628261, "event": "ring", "name": "opal-reef-tide", "addr": "fd00:db8:0:1:a022:b022:c022:d022", "status": "opal-reef-tide up=119s theta=343047ms ppm=322 nbr=0/1 flash=0 pat=2 bright=45% frames=3374"}
+{"t": 39735.782616226, "event": "ring", "name": "feral-tide-light", "addr": "fd00:db8:0:1:a002:b002:c002:d002", "status": "feral-tide-light up=567s theta=-104088ms ppm=353 nbr=0/1 flash=0 pat=2 bright=45% frames=15982"}
+{"t": 39735.782702745, "event": "config", "scenario": "steady", "target": "feral-tide-light", "period": 1000, "duration": 120.0, "at": 30, "ms": 500, "ppm": 300, "off_at": 0}
+{"t": 39735.889368169, "event": "flash_on", "ring": "opal-reef-tide", "reply": "flash=1000"}
+{"t": 39735.918615801, "event": "flash_on", "ring": "feral-tide-light", "reply": "flash=1000"}
+{"t": 39743.817466315, "event": "camera_measuring"}
+{"t": 39864.060722252, "event": "measure_end"}
+{"t": 39864.748464393, "event": "cleanup_done", "flash_kept": false}

@@ -1,0 +1,32 @@
+{
+  "exit_code": 1,
+  "trials": [
+    {
+      "baseline": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 1363,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "1e2c66bb",
+        "pat": 4,
+        "ppm": -609,
+        "raw": "opal-reef-tide up=49s theta=1831324ms ppm=-609 nbr=1/1 infra=1 part=1e2c66bb reset=00000000/none flash=0 pat=4 bright=45% frames=1363",
+        "reset": "00000000/none",
+        "theta": 1831324,
+        "up": 49
+      },
+      "duration": 150.02370452301693,
+      "recovered_status": null,
+      "saw_status_down": true,
+      "saw_usb_down": true,
+      "status_down_at": 0.001268263004021719,
+      "status_up_at": null,
+      "success": false,
+      "trial": 1,
+      "usb_down_at": 0.9025530390208587,
+      "usb_up_at": null
+    }
+  ]
+}

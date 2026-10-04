@@ -1,0 +1,84 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/* Same partition map as boards/promicro_nrf52840_nrf52840_uf2.overlay —
+ * KEEP IN SYNC (separate builds, duplicated on purpose). MCUboot's own
+ * app.overlay chooses zephyr,code-partition = &boot_partition, which is
+ * our 48 kB partition at 0x26000 — exactly where the Adafruit UF2
+ * bootloader jumps.
+ */
+
+/* This file REPLACES mcuboot's stock app.overlay (sysbuild passes it as
+ * the overlay set), so we must also restate the chosen code-partition
+ * that app.overlay normally provides — without it MCUboot links into
+ * slot0 and the chainload breaks. */
+/ {
+	chosen {
+		zephyr,code-partition = &boot_partition;
+	};
+};
+
+/* A swap/validation boot must not inherit an enabled LED load.  These hogs
+ * take ownership before MCUboot touches flash and remain low until the
+ * application deliberately enables its selected rail after initialization. */
+&gpio0 {
+	status = "okay";
+
+	carrier_led_power_boot_hold: carrier_led_power_boot_hold {
+		gpio-hog;
+		gpios = <17 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "carrier LED rail boot hold";
+	};
+
+	module_vcc_power_boot_hold: module_vcc_power_boot_hold {
+		gpio-hog;
+		gpios = <13 GPIO_ACTIVE_HIGH>;
+		output-low;
+		line-name = "module VCC boot hold";
+	};
+};
+
+/delete-node/ &code_partition;
+/delete-node/ &storage_partition;
+/delete-node/ &boot_partition;
+
+&flash0 {
+	partitions {
+		boot_partition: partition@26000 {
+			label = "mcuboot";
+			reg = <0x00026000 0x0000c000>;
+		};
+		/* second label `code_partition` keeps the base dtsi's chosen
+		 * reference resolvable after the /delete-node/ above (mcuboot's
+		 * own app.overlay re-chooses &boot_partition for its code) */
+		code_partition: slot0_partition: partition@32000 {
+			label = "image-0";
+			reg = <0x00032000 0x0005d000>;
+		};
+		slot1_partition: partition@8f000 {
+			label = "image-1";
+			reg = <0x0008f000 0x0005d000>;
+		};
+		storage_partition: partition@ec000 {
+			label = "storage";
+			reg = <0x000ec000 0x00008000>;
+		};
+		uf2_partition: partition@f4000 {
+			label = "uf2-bootloader";
+			read-only;
+			reg = <0x000f4000 0x0000c000>;
+		};
+	};
+};
+
+/* The top 12 KiB of SRAM (0x2003d000..0x20040000) are reserved: the
+ * escape-ladder boot-attempt state at 0x2003d000 (KEEP IN SYNC with
+ * src/escape_ladder.h ESCAPE_LADDER_RAM_ADDR and the other overlays)
+ * plus the native UF2 bootloader's stack, whose initial MSP is the top
+ * of SRAM and which runs on every reset before MCUboot. Carving the
+ * whole region out of sram0 keeps both images' stacks and heap clear of
+ * the ladder and documents why the last 8 KiB are never trustworthy
+ * across a reset anyway. */
+&sram0 {
+	reg = <0x20000000 0x3d000>;
+};

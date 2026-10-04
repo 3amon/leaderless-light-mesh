@@ -1,0 +1,52 @@
+{
+  "exit_code": 0,
+  "trials": [
+    {
+      "bootloader_at": 3.1006995199713856,
+      "copy_duration": 5.6222520869923756,
+      "recovered_at": 2.1556048530037515,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "83D745A0CE0ECFC9431BAA895162C745B48554B24265CA4B460177CFCF2718E8",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.17"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "50B5DE173013D16F0CD4B17B6A0F6BA85C55511C15B04C4B43AE1C7CA9C1B1A6",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.16"
+        }
+      ],
+      "status": {
+        "boot": "6/confirmed",
+        "bright": 45,
+        "build": "v0.1.17",
+        "flash": 0,
+        "frames": 26,
+        "infra": 1,
+        "name": "feral-tide-light",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "feral-tide-light up=1s theta=58119ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=26 boot=6/confirmed build=v0.1.17",
+        "reset": "00000002/uf2",
+        "theta": 58119,
+        "up": 1
+      },
+      "success": true,
+      "trial": 1
+    }
+  ]
+}

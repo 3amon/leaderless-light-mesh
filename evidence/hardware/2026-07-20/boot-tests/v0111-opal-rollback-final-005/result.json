@@ -1,0 +1,33 @@
+{
+  "exit_code": 1,
+  "trials": [
+    {
+      "candidate_seen": false,
+      "duration": 180.99849491400528,
+      "rollback_seen": false,
+      "saw_sentinel_down": false,
+      "saw_status_down": true,
+      "state_error": null,
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "success": false,
+      "trial": 1
+    }
+  ]
+}

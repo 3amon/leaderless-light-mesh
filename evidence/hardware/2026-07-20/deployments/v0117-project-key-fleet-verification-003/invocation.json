@@ -1,0 +1,49 @@
+{
+  "action": "fleet",
+  "allow_downgrade": false,
+  "allow_same_version": false,
+  "command_timeout": 0.5,
+  "devices": [
+    {
+      "address": "fd00:db8:0:1:a022:b022:c022:d022",
+      "canary": true,
+      "name": "opal-reef-tide",
+      "rollout_order": 0,
+      "usb_serial": "DEC0DE0000000022"
+    },
+    {
+      "address": "fd00:db8:0:1:a002:b002:c002:d002",
+      "canary": false,
+      "name": "feral-tide-light",
+      "rollout_order": 1,
+      "usb_serial": "DEC0DE0000000002"
+    }
+  ],
+  "image": "/home/pi/firmware-tests/thread-ring.signed.bin",
+  "image_metadata": {
+    "file_sha256": "c3047a6a7cf4487a0a80c304ed0945898d3918a024cf6b3fd689712021ce40b0",
+    "header_size": 512,
+    "image_hash": "83D745A0CE0ECFC9431BAA895162C745B48554B24265CA4B460177CFCF2718E8",
+    "path": "/home/pi/firmware-tests/thread-ring.signed.bin",
+    "payload_size": 287804,
+    "size": 288652,
+    "version": "0.1.17"
+  },
+  "inventory": "/home/pi/firmware-tests/rings.json",
+  "lock_dir": "/tmp/thread-ring-deploy-locks",
+  "out": "/home/pi/deployments/v0117-project-key-fleet-verification-003",
+  "poll_interval": 1.0,
+  "reboot_timeout": 180.0,
+  "smp_helper": "/home/pi/firmware-tests/smp_transport.py",
+  "smp_python": null,
+  "smpmgr": "/home/pi/.local/bin/smpmgr",
+  "state_timeout": 5.0,
+  "targets": [
+    "opal-reef-tide",
+    "feral-tide-light"
+  ],
+  "upload_attempts": 3,
+  "upload_retry_delay": 5.0,
+  "upload_timeout": 360.0,
+  "upload_verify_timeout": 45.0
+}

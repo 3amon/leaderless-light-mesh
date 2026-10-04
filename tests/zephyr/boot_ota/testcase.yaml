@@ -1,0 +1,10 @@
+tests:
+  thread_ring.boot_ota:
+    platform_allow:
+      - native_sim/native/64
+    integration_platforms:
+      - native_sim/native/64
+    tags:
+      - boot
+      - ota
+      - settings

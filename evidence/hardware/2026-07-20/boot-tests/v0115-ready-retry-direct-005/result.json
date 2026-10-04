@@ -1,0 +1,235 @@
+{
+  "exit_code": 0,
+  "trials": [
+    {
+      "bootloader_at": 3.3456658849900123,
+      "copy_duration": 2.1087496239924803,
+      "recovered_at": 2.047873813979095,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "343A82C1066F6DF8D3D8B63B3974323C7B324F3347BBF88EA92684AD027F4A27",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.15"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.14"
+        }
+      ],
+      "status": {
+        "boot": "9/confirmed",
+        "bright": 45,
+        "flash": 0,
+        "frames": 31,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=35471ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=31 boot=9/confirmed",
+        "reset": "00000002/uf2",
+        "theta": 35471,
+        "up": 1
+      },
+      "success": true,
+      "trial": 1
+    },
+    {
+      "bootloader_at": 3.097574210987659,
+      "copy_duration": 2.1146925540233497,
+      "recovered_at": 2.286964577011531,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "343A82C1066F6DF8D3D8B63B3974323C7B324F3347BBF88EA92684AD027F4A27",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.15"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.14"
+        }
+      ],
+      "status": {
+        "boot": "10/confirmed",
+        "bright": 45,
+        "flash": 0,
+        "frames": 35,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=26764ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=35 boot=10/confirmed",
+        "reset": "00000002/uf2",
+        "theta": 26764,
+        "up": 1
+      },
+      "success": true,
+      "trial": 2
+    },
+    {
+      "bootloader_at": 3.122115867998218,
+      "copy_duration": 2.1207541690091603,
+      "recovered_at": 2.7289642179966904,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "343A82C1066F6DF8D3D8B63B3974323C7B324F3347BBF88EA92684AD027F4A27",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.15"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.14"
+        }
+      ],
+      "status": {
+        "boot": "11/confirmed",
+        "bright": 45,
+        "flash": 0,
+        "frames": 50,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=2s theta=22459ms ppm=0 nbr=1/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=50 boot=11/confirmed",
+        "reset": "00000002/uf2",
+        "theta": 22459,
+        "up": 2
+      },
+      "success": true,
+      "trial": 3
+    },
+    {
+      "bootloader_at": 3.344516623998061,
+      "copy_duration": 2.1061281010042876,
+      "recovered_at": 2.1450917960028164,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "343A82C1066F6DF8D3D8B63B3974323C7B324F3347BBF88EA92684AD027F4A27",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.15"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.14"
+        }
+      ],
+      "status": {
+        "boot": "12/confirmed",
+        "bright": 45,
+        "flash": 0,
+        "frames": 32,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=31417ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=32 boot=12/confirmed",
+        "reset": "00000002/uf2",
+        "theta": 31417,
+        "up": 1
+      },
+      "success": true,
+      "trial": 4
+    },
+    {
+      "bootloader_at": 3.3495856359950267,
+      "copy_duration": 2.1096401420072652,
+      "recovered_at": 2.157791713019833,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "343A82C1066F6DF8D3D8B63B3974323C7B324F3347BBF88EA92684AD027F4A27",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.15"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.14"
+        }
+      ],
+      "status": {
+        "boot": "13/confirmed",
+        "bright": 45,
+        "flash": 0,
+        "frames": 30,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=22367ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=30 boot=13/confirmed",
+        "reset": "00000002/uf2",
+        "theta": 22367,
+        "up": 1
+      },
+      "success": true,
+      "trial": 5
+    }
+  ]
+}

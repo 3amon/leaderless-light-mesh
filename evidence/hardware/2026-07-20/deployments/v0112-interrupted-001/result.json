@@ -1,0 +1,11 @@
+{
+  "exit_code": 1,
+  "results": [
+    {
+      "ambiguous": false,
+      "classification": "upload_failed",
+      "device": "opal-reef-tide",
+      "error": "all upload attempts failed: ['SMP command timed out after 2.0s']"
+    }
+  ]
+}

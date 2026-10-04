@@ -1,0 +1,71 @@
+# Shared-runner CI is intentionally opt-in while namespace compute is scarce.
+# Run the same gate locally with scripts/local_ci.sh. To temporarily restore
+# GitLab pipelines, set ENABLE_SHARED_RUNNER_CI=1 as a pipeline or project
+# variable; the job definitions below remain ready to use.
+workflow:
+  rules:
+    - if: '$ENABLE_SHARED_RUNNER_CI == "1"'
+    - when: never
+
+stages:
+  - test
+  - build
+
+default:
+  interruptible: true
+
+variables:
+  GIT_DEPTH: "0"
+
+host-tests:
+  stage: test
+  image: python:3.12.3-bookworm@sha256:76831bb094456f98613115be37cc8d4f9ab0d128467726ed3160044c80546437
+  before_script:
+    - apt-get update
+    - apt-get install --yes --no-install-recommends gcc git
+    - python3 -m pip install --disable-pip-version-check --requirement requirements-dev.txt
+  script:
+    - pre-commit run --all-files --show-diff-on-failure
+    - python3 -m py_compile scripts/*.py pi-tools/*.py tests/*.py
+    - bash -n scripts/*.sh pi-tools/*.sh firmware/thread-ring/*.sh
+    - python3 -m unittest discover -s tests -v
+    - python3 scripts/check_partitions.py
+    - git diff --check
+
+firmware-build:
+  stage: build
+  image:
+    name: registry.example.net/leaderless-light-mesh/ci-zephyr-arm:0.17.0-r1@sha256:df11f44186f2b8407dce9d462828be91cddfa2f9fac6f93ec83cbde454ecaa12
+    entrypoint: [""]
+  variables:
+    ZEPHYR_WORKSPACE: "$CI_PROJECT_DIR/.cache/zephyr-ws"
+    ZEPHYR_SDK_INSTALL_DIR: "/opt/toolchains/zephyr-sdk-0.17.0"
+    TOOLCHAIN_PROFILE: "ci"
+    BUILD_DIR: "$CI_PROJECT_DIR/ci-build/firmware"
+  cache:
+    key:
+      files:
+        - config/toolchain.lock.json
+        - patches/zephyr-usbd-ready-retry.patch
+      prefix: zephyr-workspace
+    paths:
+      - .cache/zephyr-ws/
+  before_script:
+    - scripts/bootstrap_ci_workspace.sh
+  script:
+    - scripts/ci.sh
+  artifacts:
+    expire_in: 14 days
+    paths:
+      - ci-build/firmware/size-report.txt
+      - ci-build/firmware/thread-ring/zephyr/zephyr.signed.bin
+  rules:
+    - if: $CI_COMMIT_TAG
+    - changes:
+        - .gitlab-ci.yml
+        - ci/**/*
+        - config/toolchain.lock.json
+        - firmware/**/*
+        - patches/**/*
+        - requirements-build.txt
+        - scripts/**/*

@@ -1,0 +1,11 @@
+[Unit]
+Description=Schedule Thread LED ring nightly hardware-in-loop checks
+
+[Timer]
+OnCalendar=*-*-* 02:30:00
+RandomizedDelaySec=10min
+Persistent=true
+Unit=thread-led-hil-nightly.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,210 @@
+{
+  "exit_code": 0,
+  "trials": [
+    {
+      "bootloader_at": 3.342437579005491,
+      "copy_duration": 2.1102273379801773,
+      "recovered_at": 1.983071688999189,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 30,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=155883ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=30",
+        "reset": "00000002/uf2",
+        "theta": 155883,
+        "up": 1
+      },
+      "success": true,
+      "trial": 1
+    },
+    {
+      "bootloader_at": 3.34735714099952,
+      "copy_duration": 2.106592397991335,
+      "recovered_at": 2.073590571002569,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 32,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=67874ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=32",
+        "reset": "00000002/uf2",
+        "theta": 67874,
+        "up": 1
+      },
+      "success": true,
+      "trial": 2
+    },
+    {
+      "bootloader_at": 3.3594198359933216,
+      "copy_duration": 2.1114727380045224,
+      "recovered_at": 2.3241894880193286,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 40,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=21669ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=40",
+        "reset": "00000002/uf2",
+        "theta": 21669,
+        "up": 1
+      },
+      "success": true,
+      "trial": 3
+    },
+    {
+      "bootloader_at": 3.106158287002472,
+      "copy_duration": 2.136124991986435,
+      "recovered_at": 22.421702388004633,
+      "recovery_class": "watchdog-assisted",
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 139,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 6,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=5s theta=32397ms ppm=0 nbr=1/1 infra=1 part=37aef4a0 reset=00000010/none flash=0 pat=6 bright=45% frames=139",
+        "reset": "00000010/none",
+        "theta": 32397,
+        "up": 5
+      },
+      "success": true,
+      "trial": 4
+    },
+    {
+      "bootloader_at": 3.34390580499894,
+      "copy_duration": 2.108220132999122,
+      "recovered_at": 24.556221419014037,
+      "recovery_class": "watchdog-assisted",
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 227,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 6,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=8s theta=35459ms ppm=0 nbr=1/1 infra=1 part=37aef4a0 reset=00000010/none flash=0 pat=6 bright=45% frames=227",
+        "reset": "00000010/none",
+        "theta": 35459,
+        "up": 8
+      },
+      "success": true,
+      "trial": 5
+    }
+  ]
+}

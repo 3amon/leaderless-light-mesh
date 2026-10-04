@@ -1,0 +1,137 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-07-13T18:58:12",
+    "ignored_checks": [
+        {
+            "description": "Footprint has no courtyard defined",
+            "key": "missing_courtyard"
+        },
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        },
+        {
+            "description": "Footprint component type doesn't match footprint pads",
+            "key": "footprint_type_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.4",
+    "schematic_parity": [],
+    "source": "thread-led-node.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Silkscreen clearance",
+            "items": [
+                {
+                    "description": "PCB text 'USER' on F.Silkscreen",
+                    "pos": {
+                        "x": 14.25,
+                        "y": 37.0
+                    },
+                    "uuid": "0c9684bf-8e24-408d-b1a0-022fc36f5ed6"
+                },
+                {
+                    "description": "Reference field of SW1",
+                    "pos": {
+                        "x": 14.25,
+                        "y": 38.0
+                    },
+                    "uuid": "ea3dc4a3-4ba4-4760-97a1-45c4f254ed72"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_overlap"
+        },
+        {
+            "description": "Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.7000 mm)",
+            "items": [
+                {
+                    "description": "PCB text 'ANT KEEP CLEAR' on F.Silkscreen",
+                    "pos": {
+                        "x": 28.0,
+                        "y": 37.0
+                    },
+                    "uuid": "6423b282-d6ff-46bd-9664-63f4beef5550"
+                }
+            ],
+            "severity": "warning",
+            "type": "text_height"
+        },
+        {
+            "description": "Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.7000 mm)",
+            "items": [
+                {
+                    "description": "PCB text 'PWR' on F.Silkscreen",
+                    "pos": {
+                        "x": 64.2,
+                        "y": 23.3
+                    },
+                    "uuid": "d0d7e030-def2-4166-8856-a550db8aa8aa"
+                }
+            ],
+            "severity": "warning",
+            "type": "text_height"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 2.0,
+                        "y": 0.0
+                    },
+                    "uuid": "99149086-c594-4d9b-bc96-571942252ace"
+                },
+                {
+                    "description": "Reference field of J4",
+                    "pos": {
+                        "x": 35.24,
+                        "y": -0.07
+                    },
+                    "uuid": "ea57411a-a7ce-46fe-b466-77fe081588b5"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 2.0,
+                        "y": 0.0
+                    },
+                    "uuid": "99149086-c594-4d9b-bc96-571942252ace"
+                },
+                {
+                    "description": "Reference field of J3",
+                    "pos": {
+                        "x": 20.0,
+                        "y": -0.07
+                    },
+                    "uuid": "295bd7c5-a24b-454a-9985-cea52c2e05d4"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        }
+    ]
+}

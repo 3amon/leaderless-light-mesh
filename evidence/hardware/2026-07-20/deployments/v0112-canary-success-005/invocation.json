@@ -1,0 +1,39 @@
+{
+  "action": "deploy",
+  "allow_downgrade": false,
+  "allow_same_version": false,
+  "command_timeout": 0.5,
+  "devices": [
+    {
+      "address": "fd00:db8:0:1:a022:b022:c022:d022",
+      "canary": true,
+      "name": "opal-reef-tide",
+      "rollout_order": 0,
+      "usb_serial": "DEC0DE0000000022"
+    }
+  ],
+  "image": "/home/pi/thread-ring-tools/v0.1.16.signed.bin",
+  "image_metadata": {
+    "file_sha256": "bf80229d77339464a58e7fce02b78b41c44ecab61a185e908f403049acf457ca",
+    "header_size": 512,
+    "image_hash": "F26CB3BA18E19A1AFAE122A751E2B0B002D691061ACA28ECEC3B337DE28190C7",
+    "path": "/home/pi/thread-ring-tools/v0.1.16.signed.bin",
+    "payload_size": 286188,
+    "size": 287036,
+    "version": "0.1.16"
+  },
+  "inventory": "/home/pi/thread-ring-tools/config/rings.json",
+  "lock_dir": "/tmp/thread-ring-deploy-locks",
+  "out": "/home/pi/deployments/v0112-canary-success-005",
+  "poll_interval": 1.0,
+  "reboot_timeout": 180.0,
+  "smp_helper": "/home/pi/thread-ring-tools/pi-tools/smp_transport.py",
+  "smp_python": null,
+  "smpmgr": "/home/pi/.local/bin/smpmgr",
+  "state_timeout": 5.0,
+  "target": "opal-reef-tide",
+  "upload_attempts": 3,
+  "upload_retry_delay": 5.0,
+  "upload_timeout": 360.0,
+  "upload_verify_timeout": 45.0
+}

@@ -1,0 +1,52 @@
+#VRML V2.0 utf8
+# SuperMini nRF52840 stand-in model (generated)
+Group { children [
+  Transform {
+    translation 0.0000 0.0000 0.3150
+    children Shape {
+      appearance Appearance { material Material {
+        diffuseColor 0.1 0.1 0.12 specularColor 0.6 0.6 0.6 shininess 0.3 } }
+      geometry Box { size 7.0866 13.1890 0.6299 }
+    }
+  }
+  Transform {
+    translation 0.0000 5.7087 0.9646
+    children Shape {
+      appearance Appearance { material Material {
+        diffuseColor 0.75 0.75 0.78 specularColor 0.6 0.6 0.6 shininess 0.8 } }
+      geometry Box { size 3.5433 2.8740 1.2598 }
+    }
+  }
+  Transform {
+    translation 0.0000 1.3780 1.0236
+    children Shape {
+      appearance Appearance { material Material {
+        diffuseColor 0.72 0.72 0.75 specularColor 0.6 0.6 0.6 shininess 0.7 } }
+      geometry Box { size 4.9213 4.1339 0.7874 }
+    }
+  }
+  Transform {
+    translation 0.0000 -5.7480 0.8071
+    children Shape {
+      appearance Appearance { material Material {
+        diffuseColor 0.83 0.68 0.21 specularColor 0.6 0.6 0.6 shininess 0.9 } }
+      geometry Box { size 3.5433 1.4173 0.3543 }
+    }
+  }
+  Transform {
+    translation -2.1654 -1.5748 0.7874
+    children Shape {
+      appearance Appearance { material Material {
+        diffuseColor 0.2 0.2 0.2 specularColor 0.6 0.6 0.6 shininess 0.3 } }
+      geometry Box { size 1.1811 3.1496 0.3150 }
+    }
+  }
+  Transform {
+    translation 2.1654 -1.5748 0.7874
+    children Shape {
+      appearance Appearance { material Material {
+        diffuseColor 0.2 0.2 0.2 specularColor 0.6 0.6 0.6 shininess 0.3 } }
+      geometry Box { size 1.1811 3.1496 0.3150 }
+    }
+  }
+] }

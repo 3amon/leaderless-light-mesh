@@ -1,0 +1,19 @@
+{
+  "action": "reboot",
+  "canary_name": "feral-tide-light",
+  "command_timeout": 0.2,
+  "dashboard": "http://localhost:8080/api/state",
+  "expected_address": "fd00:db8:0:1:a002:b002:c002:d002",
+  "expected_img": "0.1.10",
+  "max_recovery_seconds": 45.0,
+  "network_only": true,
+  "observe_seconds": 5.0,
+  "out": "/home/pi/boot-tests/v0110-feral-soak-050-sentinel",
+  "poll_interval": 0.25,
+  "sentinel_address": "fd00:db8:0:1:a022:b022:c022:d022",
+  "sentinel_name": "opal-reef-tide",
+  "settle_seconds": 5.0,
+  "target": "feral-tide-light",
+  "trials": 50,
+  "usb_serial": "DEC0DE0000000022"
+}

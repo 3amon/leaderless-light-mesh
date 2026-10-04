@@ -1,0 +1,472 @@
+diff --git a/boot/bootutil/src/image_validate.c b/boot/bootutil/src/image_validate.c
+index 521251a4..a9ec65db 100644
+--- a/boot/bootutil/src/image_validate.c
++++ b/boot/bootutil/src/image_validate.c
+@@ -203,6 +203,7 @@ bootutil_img_hash(struct boot_loader_state *state,
+         }
+ #endif
+         bootutil_sha_update(&sha_ctx, tmp_buf, blk_sz);
++        MCUBOOT_WATCHDOG_FEED();
+     }
+ #endif /* MCUBOOT_RAM_LOAD */
+ #endif /* MCUBOOT_HASH_STORAGE_DIRECTLY */
+@@ -669,6 +670,7 @@ bootutil_img_validate(struct boot_loader_state *state,
+                 goto out;
+             }
+ #ifndef MCUBOOT_SIGN_PURE
++            MCUBOOT_WATCHDOG_FEED();
+             FIH_CALL(bootutil_verify_sig, valid_signature, hash, sizeof(hash),
+                                                            buf, len, key_id);
+ #else
+@@ -676,6 +678,7 @@ bootutil_img_validate(struct boot_loader_state *state,
+              * a device to memory. The pointer is beginning of image in flash,
+              * so offset of area, the range is header + image + protected tlvs.
+              */
++            MCUBOOT_WATCHDOG_FEED();
+             FIH_CALL(bootutil_verify_img, valid_signature, (void *)flash_area_get_off(fap),
+                      hdr->ih_hdr_size + hdr->ih_img_size + hdr->ih_protect_tlv_size,
+                      buf, len, key_id);
+diff --git a/boot/bootutil/src/loader.c b/boot/bootutil/src/loader.c
+index ffd2456a..c4e1c5c4 100644
+--- a/boot/bootutil/src/loader.c
++++ b/boot/bootutil/src/loader.c
+@@ -1215,6 +1215,7 @@ boot_validated_swap_type(struct boot_loader_state *state,
+         /* Boot loader wants to switch to the secondary slot.
+          * Ensure image is valid.
+          */
++        MCUBOOT_WATCHDOG_PHASE(0xd1U, BOOT_SECONDARY_SLOT);
+         FIH_CALL(boot_validate_slot, fih_rc, state, BOOT_SECONDARY_SLOT, bs, swap_type);
+         if (FIH_NOT_EQ(fih_rc, FIH_SUCCESS)) {
+             if (FIH_EQ(fih_rc, FIH_NO_BOOTABLE_IMAGE)) {
+@@ -1840,6 +1841,7 @@ boot_swap_image(struct boot_loader_state *state, struct boot_status *bs)
+     }
+ 
+     swap_run(state, bs, copy_size);
++    MCUBOOT_WATCHDOG_PHASE(0xdbU, BOOT_CURR_IMG(state));
+ 
+ #ifdef MCUBOOT_VALIDATE_PRIMARY_SLOT
+     extern int boot_status_fails;
+@@ -2576,6 +2578,7 @@ context_boot_go(struct boot_loader_state *state, struct boot_rsp *rsp)
+         }
+ 
+ #ifdef MCUBOOT_VALIDATE_PRIMARY_SLOT
++        MCUBOOT_WATCHDOG_PHASE(0xdcU, BOOT_CURR_IMG(state));
+         FIH_CALL(boot_validate_slot, fih_rc, state, BOOT_PRIMARY_SLOT, NULL, 0);
+         /* Check for all possible values is redundant in normal operation it
+          * is meant to prevent FI attack.
+diff --git a/boot/bootutil/src/swap_move.c b/boot/bootutil/src/swap_move.c
+index 9349cde3..b7e76040 100644
+--- a/boot/bootutil/src/swap_move.c
++++ b/boot/bootutil/src/swap_move.c
+@@ -396,6 +396,7 @@ boot_move_sector_up(int idx, uint32_t sz, struct boot_loader_state *state,
+     new_off = boot_img_sector_off(state, BOOT_PRIMARY_SLOT, idx);
+     old_off = boot_img_sector_off(state, BOOT_PRIMARY_SLOT, idx - 1);
+ 
++    MCUBOOT_WATCHDOG_PHASE(0xd2U, idx);
+     if (bs->idx == BOOT_STATUS_IDX_0) {
+         if (bs->source != BOOT_STATUS_SOURCE_PRIMARY_SLOT) {
+             /* Remove data and prepare for write on devices requiring erase */
+@@ -416,9 +417,11 @@ boot_move_sector_up(int idx, uint32_t sz, struct boot_loader_state *state,
+     rc = boot_erase_region(fap_pri, new_off, sz, false);
+     assert(rc == 0);
+ 
++    MCUBOOT_WATCHDOG_PHASE(0xd3U, idx);
+     rc = boot_copy_region(state, fap_pri, fap_pri, old_off, new_off, sz);
+     assert(rc == 0);
+ 
++    MCUBOOT_WATCHDOG_PHASE(0xd4U, idx);
+     rc = boot_write_status(state, bs);
+ 
+     bs->idx++;
+@@ -440,24 +443,30 @@ boot_swap_sectors(int idx, uint32_t sz, struct boot_loader_state *state,
+     sec_off = boot_img_sector_off(state, BOOT_SECONDARY_SLOT, idx - 1);
+ 
+     if (bs->state == BOOT_STATUS_STATE_0) {
++        MCUBOOT_WATCHDOG_PHASE(0xd5U, idx);
+         rc = boot_erase_region(fap_pri, pri_off, sz, false);
+         assert(rc == 0);
+ 
++        MCUBOOT_WATCHDOG_PHASE(0xd6U, idx);
+         rc = boot_copy_region(state, fap_sec, fap_pri, sec_off, pri_off, sz);
+         assert(rc == 0);
+ 
++        MCUBOOT_WATCHDOG_PHASE(0xd7U, idx);
+         rc = boot_write_status(state, bs);
+         bs->state = BOOT_STATUS_STATE_1;
+         BOOT_STATUS_ASSERT(rc == 0);
+     }
+ 
+     if (bs->state == BOOT_STATUS_STATE_1) {
++        MCUBOOT_WATCHDOG_PHASE(0xd8U, idx);
+         rc = boot_erase_region(fap_sec, sec_off, sz, false);
+         assert(rc == 0);
+ 
++        MCUBOOT_WATCHDOG_PHASE(0xd9U, idx);
+         rc = boot_copy_region(state, fap_pri, fap_sec, pri_up_off, sec_off, sz);
+         assert(rc == 0);
+ 
++        MCUBOOT_WATCHDOG_PHASE(0xdaU, idx);
+         rc = boot_write_status(state, bs);
+         bs->idx++;
+         bs->state = BOOT_STATUS_STATE_0;
+@@ -528,6 +537,7 @@ swap_run(struct boot_loader_state *state, struct boot_status *bs,
+     const struct flash_area *fap_sec;
+ 
+     BOOT_LOG_INF("Starting swap using move algorithm.");
++    MCUBOOT_WATCHDOG_PHASE(0xd1U, bs->idx);
+ 
+     last_idx = find_last_idx(state, copy_size);
+     sector_sz = boot_img_sector_size(state, BOOT_PRIMARY_SLOT, 0);
+diff --git a/boot/zephyr/include/escape_ladder.h b/boot/zephyr/include/escape_ladder.h
+new file mode 100644
+index 00000000..751a5f52
+--- /dev/null
++++ b/boot/zephyr/include/escape_ladder.h
+@@ -0,0 +1,194 @@
++#ifndef THREAD_RING_ESCAPE_LADDER_H_
++#define THREAD_RING_ESCAPE_LADDER_H_
++
++#include <stdbool.h>
++#include <stdint.h>
++
++/* Boot-progress ratchet with a native-bootloader escape hatch.
++ *
++ * A node that wedges before its USB stack is alive used to be recoverable
++ * only by opening the enclosure and jumpering into DFU: every buttonless
++ * path into the UF2 bootloader needs a running application. The
++ * drifting-owl-spark wedge (see docs/boot-recovery-ladder.md and
++ * .diagnostics/drifting-owl-spark-20260815-wedge/) proved the class: after
++ * a watchdog reset the nRF WDT is disabled, MCUboot and early application
++ * init run unprotected, and a hang there is silent and eternal.
++ *
++ * The ladder: MCUboot counts every boot attempt in retained RAM; the
++ * application clears the count only after proving it is recoverable (USB
++ * control plane up plus stable uptime). Too many consecutive failures and
++ * MCUboot stops retrying the identical wedge and instead escapes to the
++ * native UF2 bootloader (USB power present) or parks in System OFF until
++ * USB power arrives (battery). Plugging the node in IS the recovery action.
++ *
++ * This header is compiled verbatim in three places: the application, the
++ * MCUboot patch (patches/mcuboot-watchdog-trace.patch carries an identical
++ * embedded copy, enforced by tests/test_escape_ladder.py), and the host
++ * test. The pure policy below must therefore stay free of Zephyr and nrfx
++ * dependencies; the register helpers are guarded on the MDK being present.
++ *
++ * State lives at a FIXED address near the top of SRAM, carved out of both
++ * images' view of RAM (KEEP IN SYNC: the board overlays and
++ * sysbuild/mcuboot.overlay). A fixed address rather than a .noinit section
++ * because MCUboot and the application are separate links and must agree.
++ * RAM survives every warm reset (watchdog included) but not power-on or
++ * System OFF; the magic/guard pair rejects random power-on contents, so a
++ * lost ladder simply restarts the climb.
++ *
++ * The address must sit BELOW the native bootloader's stack: the Adafruit
++ * UF2 bootloader runs before MCUboot on every reset with its initial MSP
++ * at the very top of SRAM (0x20040000, read from the nice!nano 0.6.0
++ * release image's vector table) and an 8 KiB stack growing down. The
++ * first bench run proved this the hard way — a ladder at 0x2003fff0 was
++ * trampled to garbage on every boot and the count never left 1. The
++ * carve therefore reserves 0x2003d000..0x20040000 (ladder + bootloader
++ * stack + margin) and the ladder lives at its base.
++ */
++
++struct escape_ladder_state {
++	uint32_t magic;
++	uint32_t attempts;
++	uint32_t guard;
++};
++
++#define ESCAPE_LADDER_MAGIC 0x4c414452UL /* "LADR" */
++#define ESCAPE_LADDER_RAM_ADDR 0x2003d000UL
++#define ESCAPE_LADDER_MAX_ATTEMPTS 4U
++
++/* One test boot, one reverted boot, and two more chances: the ladder only
++ * escapes after MCUboot's own A/B rollback has had its full say. */
++
++enum escape_ladder_action {
++	ESCAPE_LADDER_CONTINUE = 0,
++	/* Write the UF2 reset magic and reset: the node becomes a NICENANO
++	 * mass-storage drive on the host it is plugged into. */
++	ESCAPE_LADDER_ENTER_UF2,
++	/* The WDT cannot be stopped once started, and a soft reset does not
++	 * stop it either: escaping now would hand the native bootloader a
++	 * live watchdog that kills the drive mid-recovery. Spin unfed; the
++	 * watchdog reset (<= 15 s) disables the WDT and retains RAM, and the
++	 * next MCUboot entry escapes cleanly. */
++	ESCAPE_LADDER_AWAIT_WDT_RESET,
++	/* On battery, a node stranded in the bootloader would only drain.
++	 * System OFF with VBUS wake instead: plugging in USB restarts the
++	 * climb and escapes within MAX_ATTEMPTS failures. */
++	ESCAPE_LADDER_PARK_SYSTEM_OFF,
++};
++
++static inline bool escape_ladder_valid(const volatile struct escape_ladder_state *st)
++{
++	return st->magic == ESCAPE_LADDER_MAGIC &&
++	       st->guard == (ESCAPE_LADDER_MAGIC ^ ~st->attempts);
++}
++
++static inline uint32_t escape_ladder_attempts(const volatile struct escape_ladder_state *st)
++{
++	return escape_ladder_valid(st) ? st->attempts : 0U;
++}
++
++static inline void escape_ladder_set(volatile struct escape_ladder_state *st,
++				     uint32_t attempts)
++{
++	st->magic = ESCAPE_LADDER_MAGIC;
++	st->attempts = attempts;
++	st->guard = ESCAPE_LADDER_MAGIC ^ ~attempts;
++}
++
++static inline void escape_ladder_clear(volatile struct escape_ladder_state *st)
++{
++	escape_ladder_set(st, 0U);
++}
++
++static inline uint32_t escape_ladder_note_attempt(volatile struct escape_ladder_state *st)
++{
++	uint32_t attempts = escape_ladder_attempts(st);
++
++	if (attempts < UINT32_MAX) {
++		attempts++;
++	}
++	escape_ladder_set(st, attempts);
++	return attempts;
++}
++
++static inline enum escape_ladder_action escape_ladder_decide(uint32_t attempts,
++							     bool vbus_present,
++							     bool wdt_running)
++{
++	if (attempts < ESCAPE_LADDER_MAX_ATTEMPTS) {
++		return ESCAPE_LADDER_CONTINUE;
++	}
++	if (wdt_running) {
++		return ESCAPE_LADDER_AWAIT_WDT_RESET;
++	}
++	return vbus_present ? ESCAPE_LADDER_ENTER_UF2
++			    : ESCAPE_LADDER_PARK_SYSTEM_OFF;
++}
++
++#if defined(NRF_POWER) && defined(NRF_WDT) && defined(NRF_CLOCK)
++
++#define ESCAPE_LADDER_STATE \
++	((volatile struct escape_ladder_state *)ESCAPE_LADDER_RAM_ADDR)
++
++/* Must match what the application's Zephyr WDT path expects to inherit:
++ * 15 s on reload channel 0. Whoever starts the nRF WDT first locks its
++ * configuration; both armers therefore use identical values. */
++#define ESCAPE_LADDER_WDT_CRV (15U * 32768U)
++
++static inline bool escape_ladder_wdt_running(void)
++{
++	return (NRF_WDT->RUNSTATUS & WDT_RUNSTATUS_RUNSTATUS_Msk) != 0U;
++}
++
++static inline bool escape_ladder_vbus_present(void)
++{
++	return (NRF_POWER->USBREGSTATUS & POWER_USBREGSTATUS_VBUSDETECT_Msk) != 0U;
++}
++
++/* Arm the 15 s watchdog if nothing already did (the after-watchdog-reset
++ * case). Runs in sleep, pauses in debug halt. The WDT counts on LFCLK;
++ * request the RC-sourced LFCLK without waiting so a hang before the clock
++ * driver still gets a ticking watchdog a few microseconds later. */
++static inline void escape_ladder_arm_wdt(void)
++{
++	if (escape_ladder_wdt_running()) {
++		return;
++	}
++	if ((NRF_CLOCK->LFCLKSTAT & CLOCK_LFCLKSTAT_STATE_Msk) == 0U) {
++		NRF_CLOCK->TASKS_LFCLKSTART = 1U;
++	}
++	NRF_WDT->CONFIG = WDT_CONFIG_SLEEP_Msk;
++	NRF_WDT->CRV = ESCAPE_LADDER_WDT_CRV;
++	NRF_WDT->RREN = WDT_RREN_RR0_Msk;
++	NRF_WDT->TASKS_START = 1U;
++}
++
++static inline void escape_ladder_execute(volatile struct escape_ladder_state *st,
++					 enum escape_ladder_action action)
++{
++	switch (action) {
++	case ESCAPE_LADDER_CONTINUE:
++		return;
++	case ESCAPE_LADDER_AWAIT_WDT_RESET:
++		/* Busy spin, never WFE: the locked WDT CONFIG may pause in
++		 * sleep, and an active CPU keeps it counting regardless. */
++		for (;;) {
++		}
++	case ESCAPE_LADDER_ENTER_UF2:
++		/* Clear first: the freshly flashed image must get a whole
++		 * ladder of its own instead of bouncing straight back. */
++		escape_ladder_clear(st);
++		NRF_POWER->GPREGRET = 0x57U; /* DFU_MAGIC_UF2_RESET */
++		NVIC_SystemReset();
++		for (;;) {
++		}
++	case ESCAPE_LADDER_PARK_SYSTEM_OFF:
++		escape_ladder_clear(st);
++		NRF_POWER->SYSTEMOFF = 1U;
++		for (;;) {
++		}
++	}
++}
++
++#endif /* NRF register helpers */
++
++#endif /* THREAD_RING_ESCAPE_LADDER_H_ */
+diff --git a/boot/zephyr/include/mcuboot_config/mcuboot_config.h b/boot/zephyr/include/mcuboot_config/mcuboot_config.h
+index fd003565..e60491f5 100644
+--- a/boot/zephyr/include/mcuboot_config/mcuboot_config.h
++++ b/boot/zephyr/include/mcuboot_config/mcuboot_config.h
+@@ -391,6 +391,93 @@
+ #if CONFIG_BOOT_WATCHDOG_FEED
+ #if CONFIG_BOOT_WATCHDOG_FEED_NRFX_WDT
+ #include <nrfx_wdt.h>
++#include <escape_ladder.h>
++
++/*
++ * A watchdog started by the application survives a warm reset on Nordic
++ * parts. Record the last boot phase without logging or writing flash, and
++ * freeze the breadcrumb after a watchdog reset so the recovered application
++ * can report exactly where the interrupted MCUboot run stopped.
++ *
++ * GPREGRET2 values 0xd0..0xdd are reserved for the phase. GPREGRET always has
++ * bit 7 set, which cannot collide with the UF2 reset magic (0x57); its low
++ * seven bits carry a sector or slot index. Two bit-7 values are ALSO native
++ * bootloader DFU magics and must never be left in GPREGRET across a reset:
++ * 0xa8 (DFU_MAGIC_OTA_RESET) and 0xb1 (DFU_MAGIC_OTA_APPJUM) would drop the
++ * board into invisible BLE OTA DFU mode. Sector details 0x28 and 0x31 are
++ * therefore aliased to the out-of-range sentinels 0xff and 0xfe (slots have
++ * at most 93 sectors, so 0x7f/0x7e cannot be real indices). A successful
++ * handoff restores the application's original GPREGRET2 reboot reason and
++ * clears the detail byte.
++ */
++extern bool mcuboot_trace_frozen;
++extern uint8_t mcuboot_trace_retained_reason;
++
++static inline uint8_t mcuboot_trace_encode_detail(uint8_t detail)
++{
++    uint8_t enc = 0x80U | (detail & 0x7fU);
++
++    if (enc == 0xa8U) {
++        enc = 0xffU;
++    } else if (enc == 0xb1U) {
++        enc = 0xfeU;
++    }
++    return enc;
++}
++
++#define MCUBOOT_TRACE_IS_VALID()                              \
++    ((((uint8_t)NRF_POWER->GPREGRET2 & 0xf0U) == 0xd0U) &&   \
++     (((uint8_t)NRF_POWER->GPREGRET & 0x80U) != 0U))
++
++#define MCUBOOT_TRACE_INIT()                                  \
++    do {                                                      \
++        mcuboot_trace_frozen =                                \
++            ((NRF_POWER->RESETREAS & POWER_RESETREAS_DOG_Msk) \
++             != 0U) && MCUBOOT_TRACE_IS_VALID();              \
++        if (!mcuboot_trace_frozen) {                          \
++            mcuboot_trace_retained_reason =                   \
++                (uint8_t)NRF_POWER->GPREGRET2;                \
++            NRF_POWER->GPREGRET2 = 0xd0U;                     \
++            NRF_POWER->GPREGRET = 0x80U;                      \
++        }                                                     \
++    } while (0)
++
++#define MCUBOOT_TRACE(phase, detail)                           \
++    do {                                                      \
++        if (((NRF_POWER->RESETREAS & POWER_RESETREAS_DOG_Msk) \
++             == 0U) || !MCUBOOT_TRACE_IS_VALID()) {           \
++            NRF_POWER->GPREGRET2 = (uint8_t)(phase);          \
++            NRF_POWER->GPREGRET =                             \
++                mcuboot_trace_encode_detail((uint8_t)(detail)); \
++        }                                                     \
++    } while (0)
++
++/*
++ * Boot-progress ratchet (see escape_ladder.h): count this attempt, escape to
++ * the native UF2 bootloader / park in System OFF once the application has
++ * proven unable to come up, and make sure a watchdog is counting before any
++ * validation or swap work. Runs BEFORE arming so an escape reset never hands
++ * the native bootloader a live watchdog.
++ */
++#define MCUBOOT_ESCAPE_LADDER()                                 \
++    do {                                                       \
++        uint32_t escape_attempts =                             \
++            escape_ladder_note_attempt(ESCAPE_LADDER_STATE);   \
++        escape_ladder_execute(ESCAPE_LADDER_STATE,             \
++            escape_ladder_decide(escape_attempts,              \
++                                 escape_ladder_vbus_present(), \
++                                 escape_ladder_wdt_running())); \
++        escape_ladder_arm_wdt();                               \
++    } while (0)
++
++#define MCUBOOT_TRACE_HANDOFF()                                \
++    do {                                                      \
++        if (!mcuboot_trace_frozen) {                          \
++            NRF_POWER->GPREGRET2 =                            \
++                mcuboot_trace_retained_reason;                \
++            NRF_POWER->GPREGRET = 0U;                         \
++        }                                                     \
++    } while (0)
+ 
+ #define FEED_WDT_INST(id)                                    \
+     do {                                                     \
+@@ -468,6 +555,22 @@
+ #define MCUBOOT_WATCHDOG_SETUP()
+ #endif
+ 
++#ifndef MCUBOOT_TRACE_INIT
++#define MCUBOOT_TRACE_INIT()
++#define MCUBOOT_TRACE(phase, detail)
++#define MCUBOOT_TRACE_HANDOFF()
++#endif
++
++#ifndef MCUBOOT_ESCAPE_LADDER
++#define MCUBOOT_ESCAPE_LADDER()
++#endif
++
++#define MCUBOOT_WATCHDOG_PHASE(phase, detail) \
++    do {                                      \
++        MCUBOOT_WATCHDOG_FEED();              \
++        MCUBOOT_TRACE(phase, detail);          \
++    } while (0)
++
+ #define MCUBOOT_CPU_IDLE() \
+   if (!IS_ENABLED(CONFIG_MULTITHREADING)) { \
+     k_cpu_idle(); \
+diff --git a/boot/zephyr/main.c b/boot/zephyr/main.c
+index 3cebd286..f830cd37 100644
+--- a/boot/zephyr/main.c
++++ b/boot/zephyr/main.c
+@@ -430,6 +430,9 @@ static void boot_serial_enter()
+ }
+ #endif
+ 
++bool mcuboot_trace_frozen;
++uint8_t mcuboot_trace_retained_reason;
++
+ int main(void)
+ {
+     struct boot_rsp rsp;
+@@ -438,6 +441,8 @@ int main(void)
+ 
+     MCUBOOT_WATCHDOG_SETUP();
+     MCUBOOT_WATCHDOG_FEED();
++    MCUBOOT_TRACE_INIT();
++    MCUBOOT_ESCAPE_LADDER();
+ 
+ #if !defined(MCUBOOT_DIRECT_XIP)
+     BOOT_LOG_INF("Starting bootloader");
+@@ -590,6 +595,8 @@ int main(void)
+     mcuboot_status_change(MCUBOOT_STATUS_BOOTABLE_IMAGE_FOUND);
+ 
+     ZEPHYR_BOOT_LOG_STOP();
++    MCUBOOT_WATCHDOG_PHASE(0xddU, 0U);
++    MCUBOOT_TRACE_HANDOFF();
+     do_boot(&rsp);
+ 
+     mcuboot_status_change(MCUBOOT_STATUS_BOOT_FAILED);

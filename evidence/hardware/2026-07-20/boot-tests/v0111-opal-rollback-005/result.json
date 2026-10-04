@@ -1,0 +1,16 @@
+{
+  "exit_code": 1,
+  "trials": [
+    {
+      "candidate_seen": false,
+      "duration": 80.14650107600028,
+      "rollback_seen": false,
+      "saw_sentinel_down": false,
+      "saw_status_down": true,
+      "state_error": "Command '['/home/pi/.local/bin/smpmgr', '--ip', 'fd00:db8:0:1:a022:b022:c022:d022', '--mtu', '512', '--timeout', '15', 'image', 'state-read']' timed out after 20 seconds",
+      "states": [],
+      "success": false,
+      "trial": 1
+    }
+  ]
+}

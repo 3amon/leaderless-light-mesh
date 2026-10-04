@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "devices": [
+    {
+      "name": "dusty-reef-light",
+      "address": "fd00:db8:0:1:a001:b001:c001:d001",
+      "usb_serial": "DEC0DE0000000001",
+      "canary": true,
+      "rollout_order": 0
+    },
+    {
+      "name": "feral-tide-light",
+      "address": "fd00:db8:0:1:a002:b002:c002:d002",
+      "usb_serial": "DEC0DE0000000002",
+      "canary": false,
+      "rollout_order": 1
+    },
+    {
+      "name": "lucid-iris-light",
+      "address": "fd00:db8:0:1:a003:b003:c003:d003",
+      "usb_serial": "DEC0DE0000000003",
+      "canary": false,
+      "rollout_order": 2
+    },
+    {
+      "name": "glowing-bloom-wave",
+      "address": "fd00:db8:0:1:a004:b004:c004:d004",
+      "usb_serial": "DEC0DE0000000004",
+      "canary": false,
+      "rollout_order": 3
+    },
+    {
+      "name": "dusty-fern-shimmer",
+      "address": "fd00:db8:0:1:a005:b005:c005:d005",
+      "usb_serial": "DEC0DE0000000005",
+      "canary": false,
+      "rollout_order": 4
+    },
+    {
+      "name": "opal-reef-tide",
+      "address": "fd00:db8:0:1:a022:b022:c022:d022",
+      "usb_serial": "DEC0DE0000000022",
+      "canary": false,
+      "rollout_order": 5
+    }
+  ]
+}

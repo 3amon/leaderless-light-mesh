@@ -1,0 +1,18 @@
+{
+  "active_version": "0.1.10",
+  "address": "fd00:db8:0:1:a022:b022:c022:d022",
+  "candidate_hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+  "candidate_version": "0.1.11",
+  "command_timeout": 0.2,
+  "max_seconds": 180,
+  "out": "/home/pi/boot-tests/v0111-opal-rollback-final2-005",
+  "poll_interval": 0.25,
+  "sentinel": "feral-tide-light",
+  "sentinel_address": "fd00:db8:0:1:a002:b002:c002:d002",
+  "settle_seconds": 10,
+  "smp_timeout": 15,
+  "smpmgr": "/home/pi/.local/bin/smpmgr",
+  "target": "opal-reef-tide",
+  "trials": 5,
+  "usb_serial": "DEC0DE0000000022"
+}

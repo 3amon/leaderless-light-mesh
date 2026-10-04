@@ -1,0 +1,16 @@
+{
+ "scenario": "scramble",
+ "t_inject": 40128.507530104,
+ "pairs": [
+  {
+   "blob": 1,
+   "n": 150,
+   "offset_s": 0.00010297828703187406,
+   "jitter_s": 0.0009175621526082978,
+   "baseline_med_s": 9.2e-05,
+   "post_max_dev_s": 0.033409,
+   "heal_s": 9.858125896003912,
+   "settle_med_s": 0.000186
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+  "exit_code": 0,
+  "results": [
+    {
+      "active": {
+        "active": true,
+        "bootable": true,
+        "confirmed": true,
+        "hash": "0703E47664923732667B1B95376CBB85B96D9253FB5F15BAF0D627DC14BA0F76",
+        "pending": false,
+        "permanent": false,
+        "slot": 0,
+        "version": "0.1.18"
+      },
+      "classification": "success",
+      "device": "feral-tide-light",
+      "duration": 33.699406736996025,
+      "image": {
+        "file_sha256": "0104d0124aa2e0e44c57b183560028973185acfea1467b73d047d9e12798012b",
+        "header_size": 512,
+        "image_hash": "0703E47664923732667B1B95376CBB85B96D9253FB5F15BAF0D627DC14BA0F76",
+        "path": "/home/pi/firmware-tests/thread-ring-v0.1.18-project-key.signed.bin",
+        "payload_size": 287808,
+        "size": 288656,
+        "version": "0.1.18"
+      },
+      "saw_down": true,
+      "status": {
+        "boot": "7/confirmed",
+        "bright": 45,
+        "build": "v0.1.17",
+        "flash": 0,
+        "frames": 78,
+        "infra": 1,
+        "name": "feral-tide-light",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 4,
+        "ppm": 0,
+        "raw": "feral-tide-light up=2s theta=80377ms ppm=0 nbr=1/1 infra=1 part=37aef4a0 reset=00000002/ota flash=0 pat=4 bright=45% frames=78 boot=7/confirmed build=v0.1.17",
+        "reset": "00000002/ota",
+        "theta": 80377,
+        "up": 2
+      }
+    }
+  ]
+}

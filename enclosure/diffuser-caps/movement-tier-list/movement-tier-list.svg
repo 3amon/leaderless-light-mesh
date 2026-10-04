@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="956" viewBox="0 0 1280 956">
+<rect width="100%" height="100%" fill="#111722"/>
+<text x="52" y="62" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="36" font-weight="700">Diffuser pattern movement tier list</text>
+<text x="52" y="101" fill="#aab6c5" font-family="Arial,sans-serif" font-size="19">Estimated highlight migration under a rotating, non-uniform 16-LED field · 6 mm gap · higher = more apparent shift</text>
+<rect x="36" y="146" width="90" height="112" rx="18" fill="#ffcc66"/>
+<text x="81" y="220" text-anchor="middle" fill="#111722" font-family="Arial,sans-serif" font-size="48" font-weight="800">S</text>
+<rect x="148" y="146" width="150" height="112" rx="18" fill="#202b3b" stroke="#ffcc66" stroke-width="2"/>
+<text x="164" y="184" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">MICRO</text>
+<text x="160" y="213" fill="#ffcc66" font-family="Arial,sans-serif" font-size="11">94.1 · fine ratchet crawl</text>
+<text x="164" y="239" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #1</text>
+<rect x="306" y="146" width="150" height="112" rx="18" fill="#202b3b" stroke="#ffcc66" stroke-width="2"/>
+<text x="322" y="184" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">HRING</text>
+<text x="318" y="213" fill="#ffcc66" font-family="Arial,sans-serif" font-size="11">93.7 · reversing herringbone crawl</text>
+<text x="322" y="239" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #2</text>
+<rect x="464" y="146" width="150" height="112" rx="18" fill="#202b3b" stroke="#ffcc66" stroke-width="2"/>
+<text x="480" y="184" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">SPRAT</text>
+<text x="476" y="213" fill="#ffcc66" font-family="Arial,sans-serif" font-size="11">92.7 · spiral screw crawl</text>
+<text x="480" y="239" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #3</text>
+<rect x="622" y="146" width="150" height="112" rx="18" fill="#202b3b" stroke="#ffcc66" stroke-width="2"/>
+<text x="638" y="184" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">RATCHT</text>
+<text x="634" y="213" fill="#ffcc66" font-family="Arial,sans-serif" font-size="11">91.7 · ratcheting rim crawl</text>
+<text x="638" y="239" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #4</text>
+<rect x="780" y="146" width="150" height="112" rx="18" fill="#202b3b" stroke="#ffcc66" stroke-width="2"/>
+<text x="796" y="184" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">COMET</text>
+<text x="792" y="213" fill="#ffcc66" font-family="Arial,sans-serif" font-size="11">90.2 · tangential comet orbit</text>
+<text x="796" y="239" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #5</text>
+<rect x="938" y="146" width="150" height="112" rx="18" fill="#202b3b" stroke="#ffcc66" stroke-width="2"/>
+<text x="954" y="184" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">RINGS</text>
+<text x="950" y="213" fill="#ffcc66" font-family="Arial,sans-serif" font-size="11">89.6 · orbiting band</text>
+<text x="954" y="239" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #6</text>
+<rect x="36" y="294" width="90" height="112" rx="18" fill="#ff8fa3"/>
+<text x="81" y="368" text-anchor="middle" fill="#111722" font-family="Arial,sans-serif" font-size="48" font-weight="800">A</text>
+<rect x="148" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="164" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">VERNR</text>
+<text x="160" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">88.1 · vernier beat crawl</text>
+<text x="164" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #7</text>
+<rect x="306" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="322" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">GEAR</text>
+<text x="318" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">86.8 · rim crawl</text>
+<text x="322" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #8</text>
+<rect x="464" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="480" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">CROWN</text>
+<text x="476" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">83.8 · two-speed halo sweep</text>
+<text x="480" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #9</text>
+<rect x="622" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="638" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">TRICRN</text>
+<text x="634" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">82.3 · three-speed halo sweep</text>
+<text x="638" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #10</text>
+<rect x="780" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="796" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">ORBIT</text>
+<text x="792" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">82.2 · dotted orbit</text>
+<text x="796" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #11</text>
+<rect x="938" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="954" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">TIDES</text>
+<text x="950" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">81.7 · eccentric contour flow</text>
+<text x="954" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #12</text>
+<rect x="1096" y="294" width="150" height="112" rx="18" fill="#202b3b" stroke="#ff8fa3" stroke-width="2"/>
+<text x="1112" y="332" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">TOPO</text>
+<text x="1108" y="361" fill="#ff8fa3" font-family="Arial,sans-serif" font-size="11">70.7 · contour drift</text>
+<text x="1112" y="387" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #13</text>
+<rect x="36" y="442" width="90" height="112" rx="18" fill="#76c7c0"/>
+<text x="81" y="516" text-anchor="middle" fill="#111722" font-family="Arial,sans-serif" font-size="48" font-weight="800">B</text>
+<rect x="148" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="164" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">BLOOM</text>
+<text x="160" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">65.8 · breathing spin</text>
+<text x="164" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #14</text>
+<rect x="306" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="322" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">DRIFT</text>
+<text x="318" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">65.3 · counter-rotating sweep</text>
+<text x="322" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #15</text>
+<rect x="464" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="480" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">BRAID</text>
+<text x="476" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">64.4 · counter-sliding orbits</text>
+<text x="480" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #16</text>
+<rect x="622" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="638" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">DASH</text>
+<text x="634" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">62.8 · radial chase</text>
+<text x="638" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #17</text>
+<rect x="780" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="796" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">DOTS</text>
+<text x="792" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">61.8 · granular twinkle</text>
+<text x="796" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #18</text>
+<rect x="938" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="954" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">LACE</text>
+<text x="950" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">59.9 · petal scintillation</text>
+<text x="954" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #19</text>
+<rect x="1096" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="1112" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">RIPPLE</text>
+<text x="1108" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">58.6 · wavefront travel</text>
+<text x="1112" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #20</text>
+<rect x="1254" y="442" width="150" height="112" rx="18" fill="#202b3b" stroke="#76c7c0" stroke-width="2"/>
+<text x="1270" y="480" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">HEX</text>
+<text x="1266" y="509" fill="#76c7c0" font-family="Arial,sans-serif" font-size="11">58.5 · cell sparkle</text>
+<text x="1270" y="535" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #21</text>
+<rect x="36" y="590" width="90" height="112" rx="18" fill="#74a7ff"/>
+<text x="81" y="664" text-anchor="middle" fill="#111722" font-family="Arial,sans-serif" font-size="48" font-weight="800">C</text>
+<rect x="148" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="164" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">PULSE</text>
+<text x="160" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">58.3 · rotating breath</text>
+<text x="164" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #22</text>
+<rect x="306" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="322" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">SUN</text>
+<text x="318" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">56.0 · radial sweep</text>
+<text x="322" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #23</text>
+<rect x="464" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="480" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">TWIST</text>
+<text x="476" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">55.3 · loop circulation</text>
+<text x="480" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #24</text>
+<rect x="622" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="638" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">WEAVE</text>
+<text x="634" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">54.6 · woven sparkle</text>
+<text x="638" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #25</text>
+<rect x="780" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="796" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">WHORL</text>
+<text x="792" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">49.7 · fine spiral shimmer</text>
+<text x="796" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #26</text>
+<rect x="938" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="954" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">PETAL</text>
+<text x="950" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">48.9 · petal chase</text>
+<text x="954" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #27</text>
+<rect x="1096" y="590" width="150" height="112" rx="18" fill="#202b3b" stroke="#74a7ff" stroke-width="2"/>
+<text x="1112" y="628" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">CAUSTIC</text>
+<text x="1108" y="657" fill="#74a7ff" font-family="Arial,sans-serif" font-size="11">46.6 · flowing cell network</text>
+<text x="1112" y="683" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #28</text>
+<rect x="36" y="738" width="90" height="112" rx="18" fill="#9da4b3"/>
+<text x="81" y="812" text-anchor="middle" fill="#111722" font-family="Arial,sans-serif" font-size="48" font-weight="800">D</text>
+<rect x="148" y="738" width="150" height="112" rx="18" fill="#202b3b" stroke="#9da4b3" stroke-width="2"/>
+<text x="164" y="776" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">CONST</text>
+<text x="160" y="805" fill="#9da4b3" font-family="Arial,sans-serif" font-size="11">42.9 · jumping twinkle</text>
+<text x="164" y="831" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #29</text>
+<rect x="306" y="738" width="150" height="112" rx="18" fill="#202b3b" stroke="#9da4b3" stroke-width="2"/>
+<text x="322" y="776" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">STAR</text>
+<text x="318" y="805" fill="#9da4b3" font-family="Arial,sans-serif" font-size="11">42.5 · radial pulse</text>
+<text x="322" y="831" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #30</text>
+<rect x="464" y="738" width="150" height="112" rx="18" fill="#202b3b" stroke="#9da4b3" stroke-width="2"/>
+<text x="480" y="776" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">PINWL</text>
+<text x="476" y="805" fill="#9da4b3" font-family="Arial,sans-serif" font-size="11">38.9 · coherent spin</text>
+<text x="480" y="831" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #31</text>
+<rect x="622" y="738" width="150" height="112" rx="18" fill="#202b3b" stroke="#9da4b3" stroke-width="2"/>
+<text x="638" y="776" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">ECLIPSE</text>
+<text x="634" y="805" fill="#9da4b3" font-family="Arial,sans-serif" font-size="11">34.8 · crescent flicker</text>
+<text x="638" y="831" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #32</text>
+<rect x="780" y="738" width="150" height="112" rx="18" fill="#202b3b" stroke="#9da4b3" stroke-width="2"/>
+<text x="796" y="776" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">CIRCUIT</text>
+<text x="792" y="805" fill="#9da4b3" font-family="Arial,sans-serif" font-size="11">32.1 · branch chase</text>
+<text x="796" y="831" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #33</text>
+<rect x="938" y="738" width="150" height="112" rx="18" fill="#202b3b" stroke="#9da4b3" stroke-width="2"/>
+<text x="954" y="776" fill="#f4f7fb" font-family="Arial,sans-serif" font-size="22" font-weight="700">GALAXY</text>
+<text x="950" y="805" fill="#9da4b3" font-family="Arial,sans-serif" font-size="11">26.9 · spiral travel</text>
+<text x="954" y="831" fill="#8997aa" font-family="Arial,sans-serif" font-size="14">rank #34</text>
+<text x="52" y="928" fill="#7f8b9d" font-family="Arial,sans-serif" font-size="15">Relative prediction, not measured photometry. Uniform all-LED color changes produce color change—not spatial motion.</text>
+</svg>

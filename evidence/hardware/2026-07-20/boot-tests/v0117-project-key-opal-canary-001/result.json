@@ -1,0 +1,52 @@
+{
+  "exit_code": 0,
+  "trials": [
+    {
+      "bootloader_at": 3.347554685024079,
+      "copy_duration": 2.871332923998125,
+      "recovered_at": 2.1379080289625563,
+      "recovery_class": "direct",
+      "states": [
+        {
+          "active": true,
+          "bootable": true,
+          "confirmed": true,
+          "hash": "83D745A0CE0ECFC9431BAA895162C745B48554B24265CA4B460177CFCF2718E8",
+          "pending": false,
+          "permanent": false,
+          "slot": 0,
+          "version": "0.1.17"
+        },
+        {
+          "active": false,
+          "bootable": true,
+          "confirmed": false,
+          "hash": "46296051FE9F94D0FE844E8862F49FEB4E7A5CCCC3E6248E8919A29AEBB051DE",
+          "pending": false,
+          "permanent": false,
+          "slot": 1,
+          "version": "0.1.14"
+        }
+      ],
+      "status": {
+        "boot": "23/confirmed",
+        "bright": 45,
+        "build": "v0.1.17",
+        "flash": 0,
+        "frames": 33,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=1466908ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=33 boot=23/confirmed build=v0.1.17",
+        "reset": "00000002/uf2",
+        "theta": 1466908,
+        "up": 1
+      },
+      "success": true,
+      "trial": 1
+    }
+  ]
+}

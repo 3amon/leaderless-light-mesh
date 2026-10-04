@@ -1,0 +1,85 @@
+{
+  "exit_code": 0,
+  "results": [
+    {
+      "active": {
+        "active": true,
+        "bootable": true,
+        "confirmed": true,
+        "hash": "50B5DE173013D16F0CD4B17B6A0F6BA85C55511C15B04C4B43AE1C7CA9C1B1A6",
+        "pending": false,
+        "permanent": false,
+        "slot": 0,
+        "version": "0.1.16"
+      },
+      "classification": "already_current",
+      "device": "opal-reef-tide",
+      "image": {
+        "file_sha256": "5acd487fe8aafdae089751f7dcdb47fa225befb8d356030db8f25ab8bd114765",
+        "header_size": 512,
+        "image_hash": "50B5DE173013D16F0CD4B17B6A0F6BA85C55511C15B04C4B43AE1C7CA9C1B1A6",
+        "path": "/home/pi/firmware-tests/thread-ring-0.1.16-yield.signed.bin",
+        "payload_size": 287816,
+        "size": 288664,
+        "version": "0.1.16"
+      },
+      "status": {
+        "boot": "21/confirmed",
+        "bright": 45,
+        "build": "c3b774e-dirty",
+        "flash": 0,
+        "frames": 4052,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 4,
+        "ppm": 85,
+        "raw": "opal-reef-tide up=148s theta=-38939ms ppm=85 nbr=1/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=4 bright=45% frames=4052 boot=21/confirmed build=c3b774e-dirty",
+        "reset": "00000002/uf2",
+        "theta": -38939,
+        "up": 148
+      }
+    },
+    {
+      "active": {
+        "active": true,
+        "bootable": true,
+        "confirmed": true,
+        "hash": "50B5DE173013D16F0CD4B17B6A0F6BA85C55511C15B04C4B43AE1C7CA9C1B1A6",
+        "pending": false,
+        "permanent": false,
+        "slot": 0,
+        "version": "0.1.16"
+      },
+      "classification": "already_current",
+      "device": "feral-tide-light",
+      "image": {
+        "file_sha256": "5acd487fe8aafdae089751f7dcdb47fa225befb8d356030db8f25ab8bd114765",
+        "header_size": 512,
+        "image_hash": "50B5DE173013D16F0CD4B17B6A0F6BA85C55511C15B04C4B43AE1C7CA9C1B1A6",
+        "path": "/home/pi/firmware-tests/thread-ring-0.1.16-yield.signed.bin",
+        "payload_size": 287816,
+        "size": 288664,
+        "version": "0.1.16"
+      },
+      "status": {
+        "boot": "3/confirmed",
+        "bright": 45,
+        "build": "c3b774e-dirty",
+        "flash": 0,
+        "frames": 765,
+        "infra": 1,
+        "name": "feral-tide-light",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 4,
+        "ppm": 58,
+        "raw": "feral-tide-light up=28s theta=81121ms ppm=58 nbr=1/1 infra=1 part=37aef4a0 reset=00000002/ota flash=0 pat=4 bright=45% frames=765 boot=3/confirmed build=c3b774e-dirty",
+        "reset": "00000002/ota",
+        "theta": 81121,
+        "up": 28
+      }
+    }
+  ]
+}

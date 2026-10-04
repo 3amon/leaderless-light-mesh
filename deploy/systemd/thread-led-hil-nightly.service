@@ -1,0 +1,26 @@
+[Unit]
+Description=Thread LED ring nightly hardware-in-loop checks
+After=network-online.target fleet-dashboard.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=pi
+Group=pi
+WorkingDirectory=/opt/thread-led-node
+ExecStart=/usr/bin/python3 /opt/thread-led-node/pi-tools/hil_runner.py --config /etc/thread-led-node/hil-jobs.json --schedule nightly
+TimeoutStartSec=15min
+Nice=10
+UMask=0077
+CapabilityBoundingSet=
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectHome=read-only
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+ReadWritePaths=/home/pi/thread-ring-hil
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictSUIDSGID=true

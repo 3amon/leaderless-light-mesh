@@ -1,0 +1,82 @@
+diff --git a/drivers/usb/common/nrf_usbd_common/nrf_usbd_common.c b/drivers/usb/common/nrf_usbd_common/nrf_usbd_common.c
+--- a/drivers/usb/common/nrf_usbd_common/nrf_usbd_common.c
++++ b/drivers/usb/common/nrf_usbd_common/nrf_usbd_common.c
+@@ -994,28 +994,55 @@ static inline void usbd_errata_187_211_end(void)
+  */
+ static void usbd_enable(void)
+ {
+-	if (nrf_usbd_common_errata_187()) {
+-		usbd_errata_187_211_begin();
+-	}
+-
+-	if (nrf_usbd_common_errata_171()) {
+-		usbd_errata_171_begin();
+-	}
+-
+-	/* Enable the peripheral */
+-	NRF_USBD->ENABLE = 1;
+-
+-	/* Waiting for peripheral to enable, this should take a few us */
+-	while ((NRF_USBD->EVENTCAUSE & USBD_EVENTCAUSE_READY_Msk) == 0) {
+-	}
+-	NRF_USBD->EVENTCAUSE = USBD_EVENTCAUSE_READY_Msk;
+-
+-	if (nrf_usbd_common_errata_171()) {
+-		usbd_errata_171_end();
+-	}
+-
+-	if (nrf_usbd_common_errata_187()) {
+-		usbd_errata_187_211_end();
+-	}
++	/* MCUboot can reset into the application while VBUS remains present. On
++	 * nRF52840, that handoff can occasionally leave a USBD enable attempt
++	 * without a READY event. The upstream unbounded spin starves this work
++	 * queue and eventually the whole application watchdog. Bound each
++	 * attempt and power-cycle the peripheral; normal starts still complete
++	 * on the first attempt within a few microseconds. */
++	for (unsigned int attempt = 1;; attempt++) {
++		if (nrf_usbd_common_errata_187()) {
++			usbd_errata_187_211_begin();
++		}
++
++		if (nrf_usbd_common_errata_171()) {
++			usbd_errata_171_begin();
++		}
++
++		NRF_USBD->ENABLE = 1;
++		unsigned int waited_us = 0;
++
++		while ((NRF_USBD->EVENTCAUSE & USBD_EVENTCAUSE_READY_Msk) == 0 &&
++		       waited_us < 10000) {
++			k_busy_wait(10);
++			waited_us += 10;
++		}
++
++		bool ready = (NRF_USBD->EVENTCAUSE & USBD_EVENTCAUSE_READY_Msk) != 0;
++
++		if (ready) {
++			NRF_USBD->EVENTCAUSE = USBD_EVENTCAUSE_READY_Msk;
++		} else {
++			NRF_USBD->ENABLE = 0;
++		}
++
++		if (nrf_usbd_common_errata_171()) {
++			usbd_errata_171_end();
++		}
++
++		if (nrf_usbd_common_errata_187()) {
++			usbd_errata_187_211_end();
++		}
++
++		if (ready) {
++			return;
++		}
++
++		LOG_WRN("USBD READY timeout on attempt %u; retrying", attempt);
++		/* This driver runs on a cooperative work queue. Yield between
++		 * retries so a persistent hardware fault cannot starve the
++		 * application and its watchdog feed. Cap the backoff at 100 ms. */
++		k_sleep(K_MSEC(attempt < 100U ? attempt : 100U));
++	}
+ }
+ /** @} */

@@ -1,0 +1,83 @@
+{
+  "exit_code": 0,
+  "results": [
+    {
+      "active": {
+        "active": true,
+        "bootable": true,
+        "confirmed": true,
+        "hash": "F7272B7E7953380AD382F15412DE012C4CF27774BD7102ED638A69709EE8CF6D",
+        "pending": false,
+        "permanent": false,
+        "slot": 0,
+        "version": "0.1.12"
+      },
+      "classification": "already_current",
+      "device": "opal-reef-tide",
+      "image": {
+        "file_sha256": "5d974ff2dd13be18cf225c28ef976bb54b759a6533e18566339d49b996ab36e1",
+        "header_size": 512,
+        "image_hash": "F7272B7E7953380AD382F15412DE012C4CF27774BD7102ED638A69709EE8CF6D",
+        "path": "/home/pi/thread-ring-tools/v0.1.12.signed.bin",
+        "payload_size": 286188,
+        "size": 287036,
+        "version": "0.1.12"
+      },
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 401,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 5,
+        "ppm": 224,
+        "raw": "opal-reef-tide up=15s theta=161968ms ppm=224 nbr=1/1 infra=1 part=37aef4a0 reset=00000002/ota flash=0 pat=5 bright=45% frames=401",
+        "reset": "00000002/ota",
+        "theta": 161968,
+        "up": 15
+      }
+    },
+    {
+      "active": {
+        "active": true,
+        "bootable": true,
+        "confirmed": true,
+        "hash": "F7272B7E7953380AD382F15412DE012C4CF27774BD7102ED638A69709EE8CF6D",
+        "pending": false,
+        "permanent": false,
+        "slot": 0,
+        "version": "0.1.12"
+      },
+      "classification": "success",
+      "device": "feral-tide-light",
+      "duration": 65.15722058300162,
+      "image": {
+        "file_sha256": "5d974ff2dd13be18cf225c28ef976bb54b759a6533e18566339d49b996ab36e1",
+        "header_size": 512,
+        "image_hash": "F7272B7E7953380AD382F15412DE012C4CF27774BD7102ED638A69709EE8CF6D",
+        "path": "/home/pi/thread-ring-tools/v0.1.12.signed.bin",
+        "payload_size": 286188,
+        "size": 287036,
+        "version": "0.1.12"
+      },
+      "saw_down": true,
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 724,
+        "infra": 1,
+        "name": "feral-tide-light",
+        "nbr": "1/1",
+        "part": "37aef4a0",
+        "pat": 5,
+        "ppm": 96,
+        "raw": "feral-tide-light up=26s theta=134915ms ppm=96 nbr=1/1 infra=1 part=37aef4a0 reset=00000002/ota flash=0 pat=5 bright=45% frames=724",
+        "reset": "00000002/ota",
+        "theta": 134915,
+        "up": 26
+      }
+    }
+  ]
+}

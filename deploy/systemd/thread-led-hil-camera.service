@@ -1,0 +1,31 @@
+[Unit]
+Description=Thread LED ring camera hardware-in-loop check
+After=network-online.target fleet-dashboard.service
+Wants=network-online.target
+ConditionPathExists=/dev/video0
+
+[Service]
+Type=oneshot
+User=pi
+Group=pi
+SupplementaryGroups=video
+WorkingDirectory=/opt/thread-led-node
+# The dashboard takes a 2.5-second positioning snapshot every six seconds.
+# Lease the camera for this bounded job, and restore snapshots on every exit.
+ExecStartPre=+/usr/bin/systemctl stop fleet-dashboard.service
+ExecStart=/usr/bin/python3 /opt/thread-led-node/pi-tools/hil_runner.py --config /etc/thread-led-node/hil-jobs.json --job camera-steady
+ExecStopPost=+/usr/bin/systemctl start --no-block fleet-dashboard.service
+TimeoutStartSec=10min
+Nice=10
+UMask=0077
+CapabilityBoundingSet=
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectHome=read-only
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+ReadWritePaths=/home/pi/thread-ring-hil
+RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK AF_UNIX
+RestrictSUIDSGID=true

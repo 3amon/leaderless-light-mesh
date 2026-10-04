@@ -1,0 +1,31 @@
+name: firmware
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Host checks
+        run: |
+          python3 -m pip install --disable-pip-version-check --requirement requirements-dev.txt
+          pre-commit run --all-files --show-diff-on-failure
+          python3 -m py_compile scripts/*.py pi-tools/*.py tests/*.py
+          bash -n scripts/*.sh pi-tools/*.sh firmware/thread-ring/*.sh
+          python3 -m unittest discover -s tests -v
+          python3 scripts/check_partitions.py
+          git diff --check
+
+  # The firmware build is intended for a self-hosted runner with the pinned
+  # Zephyr SDK/workspace installed by scripts/bootstrap_workspace.sh. This
+  # avoids silently substituting a floating container/toolchain.
+  firmware-build:
+    if: github.repository_owner == 'eamon'
+    runs-on: [self-hosted, linux, zephyr-sdk-0.17.0]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pinned build and tests
+        run: scripts/ci.sh

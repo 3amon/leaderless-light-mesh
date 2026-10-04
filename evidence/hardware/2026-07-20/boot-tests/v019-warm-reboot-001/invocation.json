@@ -1,0 +1,15 @@
+{
+  "action": "reboot",
+  "canary_name": "opal-reef-tide",
+  "command_timeout": 0.2,
+  "dashboard": "http://localhost:8080/api/state",
+  "expected_img": "0.1.9",
+  "max_recovery_seconds": 150.0,
+  "observe_seconds": 5.0,
+  "out": "/home/pi/boot-tests/v019-warm-reboot-001",
+  "poll_interval": 0.25,
+  "settle_seconds": 15.0,
+  "target": "opal-reef-tide",
+  "trials": 1,
+  "usb_serial": "DEC0DE0000000022"
+}

@@ -1,0 +1,85 @@
+{
+  "exit_code": 2,
+  "trials": [
+    {
+      "bootloader_at": 3.3470273630227894,
+      "copy_duration": 2.107016105990624,
+      "recovered_at": 2.154172517010011,
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 34,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=132395ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=34",
+        "reset": "00000002/uf2",
+        "theta": 132395,
+        "up": 1
+      },
+      "success": true,
+      "trial": 1
+    },
+    {
+      "bootloader_at": 3.344576450996101,
+      "copy_duration": 2.113060272997245,
+      "recovered_at": 2.0169208040169906,
+      "states": [
+        {
+          "active": true,
+          "confirmed": true,
+          "hash": "BDC1F2EB6E59F5950A7432A63FBDD6D6E78E8567138740F16F9B020274B88A90",
+          "pending": false,
+          "slot": 0,
+          "version": "0.1.10"
+        },
+        {
+          "active": false,
+          "confirmed": false,
+          "hash": "300B52511D412780D7A19C47A383102B5AF1EAF4489120275765FE0914BE2B38",
+          "pending": false,
+          "slot": 1,
+          "version": "0.1.11"
+        }
+      ],
+      "status": {
+        "bright": 45,
+        "flash": 0,
+        "frames": 31,
+        "infra": 1,
+        "name": "opal-reef-tide",
+        "nbr": "0/1",
+        "part": "37aef4a0",
+        "pat": -1,
+        "ppm": 0,
+        "raw": "opal-reef-tide up=1s theta=64578ms ppm=0 nbr=0/1 infra=1 part=37aef4a0 reset=00000002/uf2 flash=0 pat=-1 bright=45% frames=31",
+        "reset": "00000002/uf2",
+        "theta": 64578,
+        "up": 1
+      },
+      "success": true,
+      "trial": 2
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "action": "deploy",
+  "allow_downgrade": false,
+  "allow_same_version": false,
+  "command_timeout": 0.5,
+  "devices": [
+    {
+      "address": "fd00:db8:0:1:a002:b002:c002:d002",
+      "canary": false,
+      "name": "feral-tide-light",
+      "rollout_order": 1,
+      "usb_serial": null
+    }
+  ],
+  "image": "/home/pi/firmware-tests/thread-ring-0.1.16-yield.signed.bin",
+  "image_metadata": {
+    "file_sha256": "5acd487fe8aafdae089751f7dcdb47fa225befb8d356030db8f25ab8bd114765",
+    "header_size": 512,
+    "image_hash": "50B5DE173013D16F0CD4B17B6A0F6BA85C55511C15B04C4B43AE1C7CA9C1B1A6",
+    "path": "/home/pi/firmware-tests/thread-ring-0.1.16-yield.signed.bin",
+    "payload_size": 287816,
+    "size": 288664,
+    "version": "0.1.16"
+  },
+  "inventory": "/home/pi/thread-ring-tools/config/rings.json",
+  "lock_dir": "/tmp/thread-ring-deploy-locks",
+  "out": "/home/pi/deployments/v0116-feral-rollout",
+  "poll_interval": 1.0,
+  "reboot_timeout": 180.0,
+  "smp_helper": "/home/pi/thread-ring-tools/pi-tools/smp_transport.py",
+  "smp_python": null,
+  "smpmgr": "/home/pi/.local/bin/smpmgr",
+  "state_timeout": 5.0,
+  "target": "feral-tide-light",
+  "upload_attempts": 3,
+  "upload_retry_delay": 5.0,
+  "upload_timeout": 360.0,
+  "upload_verify_timeout": 45.0
+}

@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "sdk": "0.17.0",
+  "tool_profiles": {
+    "local": {
+      "python": "3.12.3",
+      "cmake": "3.31.10",
+      "west": "1.5.0"
+    },
+    "ci": {
+      "python": "3.12.3",
+      "cmake": "3.31.10",
+      "west": "1.5.0",
+      "image": "registry.example.net/leaderless-light-mesh/ci-zephyr-arm:0.17.0-r1@sha256:df11f44186f2b8407dce9d462828be91cddfa2f9fac6f93ec83cbde454ecaa12"
+    }
+  },
+  "zephyr": {
+    "path": "zephyr",
+    "revision": "7823374e872145b5bd018bfe447839eb36042611",
+    "patch": "patches/zephyr-usbd-ready-retry.patch",
+    "patched_file": "drivers/usb/common/nrf_usbd_common/nrf_usbd_common.c",
+    "patched_file_sha256": "9f988e892791df73521e66b8ebdc0b2fce95c2916e668b61dcec0744a8723b52"
+  },
+  "mcuboot": {
+    "path": "bootloader/mcuboot",
+    "patch": "patches/mcuboot-watchdog-trace.patch",
+    "patched_files": {
+      "boot/bootutil/src/image_validate.c": "971893574f683fd637e245a6c7fc8ae52c0168088ad2ba485b337aa4f5194fb1",
+      "boot/bootutil/src/loader.c": "9a70d2b55fe4d1f18a7771416e8c1faa9cce161a7fc93fb584ef150d49051002",
+      "boot/bootutil/src/swap_move.c": "17fa6492e55e79e28133db4d7aaad08c390a1064321a13514bafc41b0daee477",
+      "boot/zephyr/include/escape_ladder.h": "fbe3a857a8d1468f957caab1dde8326708320a731044468352adc267c65963c0",
+      "boot/zephyr/include/mcuboot_config/mcuboot_config.h": "1dbb48b2b84fef114bea91ef494f3b1ad2be2147f6249aec3a0bca9fe335cf48",
+      "boot/zephyr/main.c": "421ffd3a3f545d93cc20138284ba8efa8d2cbea35ad99ebd117fcde12f8162ff"
+    }
+  },
+  "modules": {
+    "modules/hal/cmsis": "d1b8b20b6278615b00e136374540eb1c00dcabe7",
+    "modules/hal/nordic": "37ca068d7b013fb65a2acc9306bffa48a3e72839",
+    "modules/crypto/mbedtls": "4952e1328529ee549d412b498ea71c54f30aa3b1",
+    "bootloader/mcuboot": "2d61c318933819a0f4954fb2a5a957a62c6128ce",
+    "modules/lib/openthread": "3ae741f95e7dfb391dec35c48742862049eb62e8",
+    "modules/lib/zcbor": "9b07780aca6fb21f82a241ba386ad9b379809337"
+  }
+}
